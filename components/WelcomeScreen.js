@@ -1,6 +1,5 @@
 import React, {Component, useEffect, useState} from 'react';
 import {StyleSheet, Text, TextInput, TouchableHighlight, View} from 'react-native';
-import * as axios from 'axios';
 import {login} from '../api/accounts';
 
 class WelcomeScreen extends Component {

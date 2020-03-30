@@ -67,8 +67,8 @@ class App extends React.Component{
         return (
             <NavigationContainer>
                 <Tab.Navigator>
-                    <Tab.Screen name="Home" component={Home} />
-                    <Tab.Screen name="Profile" component={Profile} />
+                    <Tab.Screen name="Home" component={Home} initialParams={{user:this.state.user}} />
+                    <Tab.Screen name="Profile" component={Profile} initialParams={{user:this.state.user}} />
                 </Tab.Navigator>
             </NavigationContainer>
         );
@@ -76,7 +76,7 @@ class App extends React.Component{
       return(
         <NavigationContainer>
             <Stack.Navigator>
-                <Tab.Screen name="Login" component={WelcomeScreen} initialParams={{success_function:this.set_user, text:'Hello'}} />
+                <Tab.Screen name="Login" component={WelcomeScreen} initialParams={{success_function:this.set_user}} />
             </Stack.Navigator>
         </NavigationContainer>
         );

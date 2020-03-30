@@ -16,13 +16,24 @@ export async function login(username, password,success_function){
         console.error(response);
     });
 }
-export async function search_film(query, result_function){
-    await axios.post('http://192.168.1.249:8000/api/search_film',{
-        query:query,
-    }).then( response => {
+export async function search_film(query, result_function) {
+    await axios.post('http://192.168.1.249:8000/api/search_film', {
+        query: query,
+    }).then(response => {
         let r = response.data.films;
         console.log(r);
         result_function(r);
+    }).catch((response) => {
+        console.error(response);
+    });
+}
+export async function like_film(username, film_id) {
+    await axios.post('http://192.168.1.249:8000/api/fav', {
+        username: username,
+        film_id: film_id,
+    }).then(response => {
+        let r = response.data.films;
+        console.log(r);
     }).catch((response) => {
         console.error(response);
     });

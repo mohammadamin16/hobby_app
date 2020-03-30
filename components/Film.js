@@ -2,6 +2,7 @@ import React, {Component, useEffect, useState} from 'react';
 import {StyleSheet, ActivityIndicator, Image, View, Text, TouchableHighlight} from 'react-native';
 import like from '../img/like.png';
 import dislike from '../img/dislike.png';
+import {like_film} from '../api/accounts';
 
 
 class Film extends Component {
@@ -25,6 +26,8 @@ class Film extends Component {
             <View style={{flex: 3, justifyContent: 'space-between'}}>
                 <Text>{this.props.film.title}</Text>
                 <TouchableHighlight onPress={() => {
+                    console.log(this.props.film.film_id);
+                    like_film(this.props.user.username, this.props.film.imdb_id);
                     this.setState(() => {
                             if (this.state.like_status){
 
@@ -37,7 +40,7 @@ class Film extends Component {
                 }}>
                 <Image
                     style={{flex: 1, width: 50, height: 50}}
-                    source={this.state.like_status ?  dislike : like}/>
+                    source={!this.state.like_status ?  dislike : like}/>
                 </TouchableHighlight>
 
                 </View>

@@ -31,10 +31,10 @@ export default class FetchExample extends React.Component {
         //     result = <ActivityIndicator size="large" color="#0000ff" /> ;
         // }
         // else{
-        let data = [
-        {"icon": "https://m.media-amazon.com/images/M/MV5BMTcxODgwMDkxNV5BMl5BanBnXkFtZTYwMDk2MDg3._V1_SY150_CR0,0,101,150_.jpg", "imdb_id": "0295297", "title": "Harry Potter and the Chamber of Secrets"}, {"icon": "https://m.media-amazon.com/images/M/MV5BMTI1NDMyMjExOF5BMl5BanBnXkFtZTcwOTc4MjQzMQ@@._V1_SY150_CR0,0,101,150_.jpg", "imdb_id": "0330373", "title": "Harry Potter and the Goblet of Fire"}, {"icon": "https://m.media-amazon.com/images/M/MV5BNjQ3NWNlNmQtMTE5ZS00MDdmLTlkZjUtZTBlM2UxMGFiMTU3XkEyXkFqcGdeQXVyNjUwNzk3NDc@._V1_SY150_CR0,0,101,150_.jpg", "imdb_id": "0241527", "title": "Harry Potter and the Sorcerer's Stone"}, {"icon": "https://m.media-amazon.com/images/M/MV5BMjIyZGU4YzUtNDkzYi00ZDRhLTljYzctYTMxMDQ4M2E0Y2YxXkEyXkFqcGdeQXVyNTIzOTk5ODM@._V1_SX101_CR0,0,101,150_.jpg", "imdb_id": "1201607", "title": "Harry Potter and the Deathly Hallows: Part 2"}
-        ];
-
+        // let data = [
+        // {"icon": "https://m.media-amazon.com/images/M/MV5BMTcxODgwMDkxNV5BMl5BanBnXkFtZTYwMDk2MDg3._V1_SY150_CR0,0,101,150_.jpg", "imdb_id": "0295297", "title": "Harry Potter and the Chamber of Secrets"}, {"icon": "https://m.media-amazon.com/images/M/MV5BMTI1NDMyMjExOF5BMl5BanBnXkFtZTcwOTc4MjQzMQ@@._V1_SY150_CR0,0,101,150_.jpg", "imdb_id": "0330373", "title": "Harry Potter and the Goblet of Fire"}, {"icon": "https://m.media-amazon.com/images/M/MV5BNjQ3NWNlNmQtMTE5ZS00MDdmLTlkZjUtZTBlM2UxMGFiMTU3XkEyXkFqcGdeQXVyNjUwNzk3NDc@._V1_SY150_CR0,0,101,150_.jpg", "imdb_id": "0241527", "title": "Harry Potter and the Sorcerer's Stone"}, {"icon": "https://m.media-amazon.com/images/M/MV5BMjIyZGU4YzUtNDkzYi00ZDRhLTljYzctYTMxMDQ4M2E0Y2YxXkEyXkFqcGdeQXVyNTIzOTk5ODM@._V1_SX101_CR0,0,101,150_.jpg", "imdb_id": "1201607", "title": "Harry Potter and the Deathly Hallows: Part 2"}
+        // ];
+        let data = this.state.result;
             result = <FlatList
                     data={data}
                     keyExtractor={item => item.imdb_id}
@@ -42,12 +42,14 @@ export default class FetchExample extends React.Component {
                         <Film
                         film={item}
                         like_status={false}
+                        user={this.props.route.params.user}
                         />
                         )} />;
             // }
 
         return(
             <View style={styles.home_screen}>
+                {/*<Text>{this.props.route.params.user.username}</Text>*/}
                 <View style={styles.row}>
                     <TextInput
                     style={styles.input}
