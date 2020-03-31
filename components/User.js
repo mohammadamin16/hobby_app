@@ -5,11 +5,11 @@ import dislike from '../img/dislike.png';
 import {like_film} from '../api/accounts';
 
 
-class Film extends Component {
+class User extends Component {
     constructor(props){
         super(props);
         this.state = {
-            like_status : props.like_status
+            like_status : false
         }
     }
     render() {
@@ -24,17 +24,13 @@ class Film extends Component {
                 padding: 5,
                 }}>
             <View style={{flex: 3, justifyContent: 'space-between'}}>
-                <Text>{this.props.film.title}</Text>
-                <Text>year: {this.props.film.year}</Text>
+                <Text>{this.props.user.name}</Text>
                 <TouchableHighlight onPress={() => {
-                    console.log(this.props.film.film_id);
-                    like_film(this.props.user.username, this.props.film.imdb_id);
+                    // like_film(this.props.user.username, this.props.film.imdb_id);
                     this.setState(() => {
                             if (this.state.like_status){
-
                                 return {like_status:false}
                             }else{
-
                                 return {like_status:true}
                             }
                         }
@@ -48,7 +44,7 @@ class Film extends Component {
                 </View>
                 <Image
                     style={{flex: 1, width: 50, height: 150}}
-                    source={{uri: this.props.film.icon}}
+                    source={dislike}
                     PlaceholderContent={<ActivityIndicator/>}
                 />
             </View>
@@ -61,4 +57,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default Film;
+export default User;

@@ -22,6 +22,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import WelcomeScreen from './components/WelcomeScreen';
 import Home from './components/Home';
 import Profile from './components/Profile';
+import People from './components/People';
 
 
 const Stack = createStackNavigator();
@@ -44,10 +45,6 @@ function SettingsScreen() {
   );
 }
 
-  // initialParams={{ itemId: 42 }}
-
-
-
 
 class App extends React.Component{
     state = {
@@ -69,6 +66,7 @@ class App extends React.Component{
                 <Tab.Navigator>
                     <Tab.Screen name="Home" component={Home} initialParams={{user:this.state.user}} />
                     <Tab.Screen name="Profile" component={Profile} initialParams={{user:this.state.user}} />
+                    <Tab.Screen name="People" component={People} />
                 </Tab.Navigator>
             </NavigationContainer>
         );

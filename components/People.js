@@ -1,9 +1,10 @@
 import React,{useState} from 'react';
 import {FlatList, ActivityIndicator, Text, View, StyleSheet, TextInput, TouchableHighlight, Image} from 'react-native';
-import {search_film} from '../api/accounts';
+import {search_people} from '../api/accounts';
 import Film from '../components/Film';
+import User from './User';
 
-export default class Home extends React.Component {
+export default class People extends React.Component {
     constructor(props){
         super(props);
         this.state ={
@@ -19,7 +20,8 @@ export default class Home extends React.Component {
 
     api = async () => {
         this.setState({isLoading:true});
-        await search_film(this.state.query,this.props.route.params.user.username ,this.search_result_setter);
+        console.log('search starts...');
+        await search_people(this.state.query,this.search_result_setter);
         this.setState({isLoading:false});
     };
 
@@ -34,18 +36,17 @@ export default class Home extends React.Component {
         let data = this.state.result;
             result = <FlatList
                     data={data}
-                    keyExtractor={item => item.imdb_id}
+                    keyExtractor={item => item.username}
                     renderItem={({item}) =>(
-                        <Film
-                        film={item}
-                        like_status={item.like_status}
-                        user={this.props.route.params.user}
+                        <User
+
+                        user={item}
                         />
                         )} />;
             }
 
         return(
-            <View style={styles.home_screen}>
+            <View style={styles.people_screen}>
                 <View style={styles.row}>
                     <TextInput
                     style={styles.input}
@@ -66,15 +67,10 @@ export default class Home extends React.Component {
 
 
 const styles = StyleSheet.create({
-    home_screen: {
+    people_screen: {
         flex: 1,
         alignItems: 'center',
-        // justifyContent: 'center',
-        backgroundColor: '#44c660',
-    },
-    welcome:{
-        fontSize:50,
-        color:'#375382',
+        backgroundColor: '#4492c6',
     },
     input:{
         padding:10,
