@@ -49,6 +49,7 @@ export default class Home extends React.Component {
                 <View style={styles.row}>
                     <TextInput
                     style={styles.input}
+                    placeholder="enter a film title in english"
                     onSubmitEditing={this.api.bind(this)}
                     onChangeText={(text) => {this.setState({query:text})}}
                     />

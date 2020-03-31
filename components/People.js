@@ -50,6 +50,7 @@ export default class People extends React.Component {
                 <View style={styles.row}>
                     <TextInput
                     style={styles.input}
+                    placeholder="Search for username or names"
                     onSubmitEditing={this.api.bind(this)}
                     onChangeText={(text) => {this.setState({query:text})}}
                     />
@@ -64,6 +65,7 @@ export default class People extends React.Component {
         );
     }
 }
+
 
 
 const styles = StyleSheet.create({

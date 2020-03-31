@@ -1,7 +1,6 @@
 import React, {Component, useEffect, useState} from 'react';
-import {StyleSheet, ActivityIndicator, Image, View, Text} from 'react-native';
+import {StyleSheet, ActivityIndicator, Image, View, Text, Button} from 'react-native';
 
-// this.props.route.params.user.username
 class Profile extends Component {
     render() {
         console.log(this.props.route.params.user.avatar);
@@ -14,6 +13,9 @@ class Profile extends Component {
                 <View style={styles.line} />
                 <Text>Username: {this.props.route.params.user.username}</Text>
                 <Text>name: {this.props.route.params.user.name}</Text>
+                <Button
+                    onPress={() => {this.props.route.params.success_function()}}
+                    title={'Logout'}/>
             </View>
         );
     }

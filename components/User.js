@@ -43,8 +43,8 @@ class User extends Component {
 
                 </View>
                 <Image
-                    style={{flex: 1, width: 50, height: 150}}
-                    source={dislike}
+                    style={{flex: 1, }}
+                    source={{uri:this.props.user.avatar}}
                     PlaceholderContent={<ActivityIndicator/>}
                 />
             </View>

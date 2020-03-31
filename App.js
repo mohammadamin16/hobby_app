@@ -52,12 +52,19 @@ class App extends React.Component{
         logged_in:false,
     };
 
-    set_user = (user) =>{
+    login_user = (user) =>{
         this.setState({user:user});
         this.setState({logged_in:true});
         console.log('this user just logged in:');
         console.log(this.state.user)
     };
+    logout_user = (user) =>{
+        this.setState({user:{}});
+        this.setState({logged_in:false});
+        console.log('this user just went out:');
+        console.log(this.state.user)
+    };
+
 
     render(){
     if (this.state.logged_in){
@@ -65,7 +72,7 @@ class App extends React.Component{
             <NavigationContainer>
                 <Tab.Navigator>
                     <Tab.Screen name="Home" component={Home} initialParams={{user:this.state.user}} />
-                    <Tab.Screen name="Profile" component={Profile} initialParams={{user:this.state.user}} />
+                    <Tab.Screen name="Profile" component={Profile} initialParams={{user:this.state.user, success_function:this.logout_user}} />
                     <Tab.Screen name="People" component={People} />
                 </Tab.Navigator>
             </NavigationContainer>
@@ -74,7 +81,7 @@ class App extends React.Component{
       return(
         <NavigationContainer>
             <Stack.Navigator>
-                <Tab.Screen name="Login" component={WelcomeScreen} initialParams={{success_function:this.set_user}} />
+                <Tab.Screen name="Login" component={WelcomeScreen} initialParams={{success_function:this.login_user}} />
             </Stack.Navigator>
         </NavigationContainer>
         );
