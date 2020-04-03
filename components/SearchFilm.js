@@ -19,7 +19,7 @@ export default class SearchFilm extends React.Component {
 
     api = async () => {
         this.setState({isLoading:true});
-        await search_film(this.state.query,this.props.route.params.user.username ,this.search_result_setter);
+        await search_film(this.state.query, this.props.route.params.user.username ,this.search_result_setter);
         this.setState({isLoading:false});
     };
 

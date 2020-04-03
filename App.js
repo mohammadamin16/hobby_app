@@ -12,10 +12,29 @@ import Profile from './components/Profile';
 import People from './components/People';
 import Home from './components/Home';
 import FilmView from './components/FilmView';
-
+import UserView from './components/UserView';
+import Toast, {DURATION} from 'react-native-easy-toast'
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+
+function FilmSearchTab({ route, navigation }) {
+        return (
+                <Stack.Navigator initialRouteName="SearchFilm">
+                    <Stack.Screen name="FilmView" component={FilmView}/>
+                    <Stack.Screen name="SearchFilm" component={SearchFilm} initialParams={{user: route.params.user}}/>
+                </Stack.Navigator>
+        );
+}
+
+function PeopleTab({ route, navigation }) {
+        return (
+                <Stack.Navigator initialRouteName="SearchFilm">
+                    <Stack.Screen name="PeopleSearch" component={People} initialParams={{user: route.params.user}}/>
+                    <Stack.Screen name="UserView" component={UserView} initialParams={{user: route.params.user}}/>
+                </Stack.Navigator>
+        );
+}
 
 
 class App extends React.Component{
@@ -37,17 +56,15 @@ class App extends React.Component{
 
     render(){
     if (this.state.logged_in){
-        console.log("Hello From Wireless Console!");
         return (
             <NavigationContainer>
                 <Tab.Navigator>
                     <Tab.Screen name="Home" component={Home} initialParams={{user:this.state.user}} />
-                    <Tab.Screen name="Films" component={SearchFilm} initialParams={{user:this.state.user}} />
                     <Tab.Screen name="Profile" component={Profile} initialParams={{user:this.state.user, success_function:this.logout_user}} />
-                    <Tab.Screen name="People" component={People} initialParams={{user:this.state.user}} />
+                    <Tab.Screen name="Films" component={FilmSearchTab} initialParams={{user:this.state.user}} />
+                    <Tab.Screen name="People" component={PeopleTab} initialParams={{user:this.state.user}} />
                 </Tab.Navigator>
             {/*<Stack.Navigator>*/}
-            {/*    <Stack.Screen name="FilmView" component={FilmView} initialParams={{user:this.state.user}}/>*/}
             {/*</Stack.Navigator>*/}
             </NavigationContainer>
         );

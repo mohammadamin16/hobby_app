@@ -13,7 +13,6 @@ class Film extends Component {
         }
     }
     render() {
-        console.log(this.state.like_status ?  dislike : like);
         return (
             <View style={{
                 flexDirection: 'row',
@@ -28,7 +27,6 @@ class Film extends Component {
                 <Text>year: {this.props.film.year}</Text>
                 <TouchableWithoutFeedback
                     onPress={() => {
-                    console.log(this.props.film.film_id);
                     like_film(this.props.user.username, this.props.film.imdb_id);
                     this.setState(() => {
                             if (this.state.like_status){

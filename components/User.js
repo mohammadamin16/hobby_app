@@ -3,17 +3,33 @@ import {StyleSheet, ActivityIndicator, Image, View, Text, TouchableHighlight} fr
 import like from '../img/like.png';
 import dislike from '../img/dislike.png';
 import {like_film} from '../api/accounts';
+import remove_friend from '../img/remove_friend.png';
+import add_friend from '../img/add_friend.png';
+import {send_request} from '../api/accounts';
+
 
 
 class User extends Component {
     constructor(props){
         super(props);
         this.state = {
-            like_status : false
+            friend_state : false
         }
     }
+
+
+
+    request_friendship =  () => {
+        send_request(this.props.signed_user.username, this.props.user.username);
+        if (this.state.friend_state){
+            this.setState({friend_state:false});
+        }else{
+            this.setState({friend_state:true});
+        }
+
+    };
+
     render() {
-        console.log(this.state.like_status ?  dislike : like);
         return (
             <View style={{
                 flexDirection: 'row',
@@ -25,20 +41,13 @@ class User extends Component {
                 }}>
             <View style={{flex: 3, justifyContent: 'space-between'}}>
                 <Text>{this.props.user.name}</Text>
-                <TouchableHighlight onPress={() => {
-                    // like_film(this.props.user.username, this.props.film.imdb_id);
-                    this.setState(() => {
-                            if (this.state.like_status){
-                                return {like_status:false}
-                            }else{
-                                return {like_status:true}
-                            }
-                        }
-                    )
-                }}>
-                <Image
+                <TouchableHighlight onPress={() => {this.request_friendship()}}>
+                    <Image
                     style={{flex: 1, width: 50, height: 50}}
-                    source={this.state.like_status ?  like : dislike}/>
+                    // source={this.state.like_status ?  like : dislike}
+                    source={this.state.friend_state ? remove_friend : add_friend}
+
+                />
                 </TouchableHighlight>
 
                 </View>

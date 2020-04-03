@@ -1,4 +1,6 @@
 import * as axios from 'axios';
+import {ToastAndroid} from 'react-native';
+
 
 export async function login(username, password,success_function){
     await axios.post('http://192.168.1.249:8000/api/login',{
@@ -42,12 +44,12 @@ export async function search_film(query,username , result_function) {
         username: username,
     }).then(response => {
         let r = response.data.films;
-        console.log(r);
         result_function(r);
     }).catch((response) => {
         console.error(response);
     });
 }
+
 
 export async function like_film(username, film_id) {
     await axios.post('http://192.168.1.249:8000/api/fav', {
@@ -55,11 +57,11 @@ export async function like_film(username, film_id) {
         film_id: film_id,
     }).then(response => {
         let r = response.data.films;
-        console.log(r);
     }).catch((response) => {
         console.error(response);
     });
 }
+
 
 export async function get_notifications(username, on_success) {
     await axios.post('http://192.168.1.249:8000/api/get_notifications', {
@@ -68,8 +70,6 @@ export async function get_notifications(username, on_success) {
         let msg = response.data.msg;
         if (msg === 'success'){
             let r = response.data.notifications;
-            // console.log('success to get notifications');
-            // console.log(r);
             on_success(r)
         }else{
             alert('Something went wrong')
@@ -80,13 +80,27 @@ export async function get_notifications(username, on_success) {
     });
 }
 
-export async function search_people(query, success_function) {
+
+export async function search_people(query, username, success_function) {
     await axios.post('http://192.168.1.249:8000/api/search_people', {
         query: query,
+        username: username,
     }).then(response => {
         let r = response.data.users;
         success_function(r);
-        console.log(r);
+    }).catch((response) => {
+        console.error(response);
+    });
+}
+
+
+export async function send_request(username, friend_username) {
+    await axios.post('http://192.168.1.249:8000/api/friendship_request', {
+        username: username,
+        friend_username: friend_username,
+    }).then(response => {
+
+    ToastAndroid.show("Requested!", ToastAndroid.SHORT);
     }).catch((response) => {
         console.error(response);
     });

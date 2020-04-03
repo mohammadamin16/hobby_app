@@ -1,8 +1,9 @@
 import React, {Component, useEffect, useState} from 'react';
-import {StyleSheet, ActivityIndicator, Image, View, Text, Button, FlatList} from 'react-native';
+import {StyleSheet, ActivityIndicator, Image, View, Text, Button, FlatList,ToastAndroid} from 'react-native';
 import Suggestion from '../components/Suggestion';
 import {get_notifications} from '../api/accounts';
 import Film from './Film';
+import Toast from 'react-native-easy-toast';
 
 class Home extends Component {
     constructor(props){
@@ -14,11 +15,10 @@ class Home extends Component {
 
     update_notifications = (notis) => {
         this.setState({notifications:notis});
-        console.log('This is it:');
-        console.log(this.state.notifications)
     };
 
     componentDidMount() {
+
         get_notifications(this.props.route.params.user.username, this.update_notifications)
     }
 
@@ -30,6 +30,7 @@ class Home extends Component {
                         renderItem={({item}) =>(
                             <Suggestion notification={item} />
                         )} />;
+        ToastAndroid.show("Hi There!", ToastAndroid.SHORT);
         return(
             <View style={styles.home_screen}>
                 {scrollview}

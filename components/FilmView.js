@@ -5,7 +5,11 @@ class FilmView extends Component {
     render() {
         return (
             <View style={styles.profile_screen}>
-                <Text>title: {this.props.film.title}</Text>
+                <Image
+                    style={{width:'50%', height:'50%', }}
+                    source={{uri:this.props.route.params.film.poster}}
+                    />
+                <Text>title: {this.props.route.params.film.title}</Text>
             </View>
         );
     }

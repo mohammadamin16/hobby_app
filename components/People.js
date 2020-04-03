@@ -20,8 +20,7 @@ export default class People extends React.Component {
 
     api = async () => {
         this.setState({isLoading:true});
-        console.log('search starts...');
-        await search_people(this.state.query,this.search_result_setter);
+        await search_people(this.state.query, this.props.route.params.user.username ,this.search_result_setter);
         this.setState({isLoading:false});
     };
 
@@ -38,10 +37,15 @@ export default class People extends React.Component {
                     data={data}
                     keyExtractor={item => item.username}
                     renderItem={({item}) =>(
+                        <TouchableHighlight
+                        onPress={() => {
+                            this.go_to_user_view(item)
+                        }}>
                         <User
-
+                        signed_user={this.props.route.params.user}
                         user={item}
                         />
+                        </TouchableHighlight>
                         )} />;
             }
 
@@ -63,6 +67,10 @@ export default class People extends React.Component {
                 </View>
             </View>
         );
+    }
+
+    go_to_user_view(_user) {
+        this.props.navigation.navigate('UserView', {user:_user})
     }
 }
 

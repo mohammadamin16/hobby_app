@@ -44,12 +44,12 @@ class Film extends Component {
                             PlaceholderContent={<ActivityIndicator/>}
                             style={{flex:1 , width: 100, height: 100,alignSelf:'center'}}
                             source={{uri:this.props.notification.suggest.film.poster}}/>
-
                         <Text style={{alignSelf:'center'}}>{this.props.notification.suggest.film.title}</Text>
                     </View>
                     <View style={{flex:1,}}>
                         <Text style={{fontSize:20}}>{this.props.notification.suggest.title}</Text>
                     <Text>{this.props.notification.suggest.text}</Text>
+                    <Text style={{fontWeight:'bold'}}>More...</Text>
                     </View>
                     </View>
                 </View>
