@@ -1,5 +1,5 @@
 import React, {Component, useEffect, useState} from 'react';
-import {StyleSheet, ActivityIndicator, Image, View, Text, TouchableHighlight} from 'react-native';
+import {StyleSheet, ActivityIndicator, Image, View, Text, TouchableHighlight, TouchableWithoutFeedback} from 'react-native';
 import like from '../img/like.png';
 import dislike from '../img/dislike.png';
 import {like_film} from '../api/accounts';
@@ -26,31 +26,40 @@ class Film extends Component {
             <View style={{flex: 3, justifyContent: 'space-between'}}>
                 <Text>{this.props.film.title}</Text>
                 <Text>year: {this.props.film.year}</Text>
-                <TouchableHighlight onPress={() => {
+                <TouchableWithoutFeedback
+                    onPress={() => {
                     console.log(this.props.film.film_id);
                     like_film(this.props.user.username, this.props.film.imdb_id);
                     this.setState(() => {
                             if (this.state.like_status){
-
                                 return {like_status:false}
                             }else{
-
                                 return {like_status:true}
                             }
                         }
                     )
-                }}>
+                }}
+                style={{flex: 1, width: 50, height: 50}}
+
+                >
                 <Image
-                    style={{flex: 1, width: 50, height: 50}}
+                    style={{width: 50, height: 50}}
                     source={this.state.like_status ?  like : dislike}/>
-                </TouchableHighlight>
+                </TouchableWithoutFeedback>
 
                 </View>
+                <TouchableHighlight
+                    onPress={() => {
+                        this.props.navigation.navigate('FilmView', {film:this.props.film})
+                    }}
+                    style={{flex: 1}}
+                >
                 <Image
-                    style={{flex: 1, width: 50, height: 150}}
+                    style={{ width: '100%', height: 150}}
                     source={{uri: this.props.film.icon}}
                     PlaceholderContent={<ActivityIndicator/>}
                 />
+                </TouchableHighlight>
             </View>
         );
     }

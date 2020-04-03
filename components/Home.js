@@ -1,106 +1,51 @@
-import React,{useState} from 'react';
-import {FlatList, ActivityIndicator, Text, View, StyleSheet, TextInput, TouchableHighlight, Image} from 'react-native';
-import {search_film} from '../api/accounts';
-import Film from '../components/Film';
+import React, {Component, useEffect, useState} from 'react';
+import {StyleSheet, ActivityIndicator, Image, View, Text, Button, FlatList} from 'react-native';
+import Suggestion from '../components/Suggestion';
+import {get_notifications} from '../api/accounts';
+import Film from './Film';
 
-export default class Home extends React.Component {
+class Home extends Component {
     constructor(props){
         super(props);
-        this.state ={
-            isLoading: false,
-            query:'',
-            result:[],
+        this.state = {
+            notifications:[]
         }
     }
 
-    search_result_setter = (data) => {
-        this.setState({result:data});
+    update_notifications = (notis) => {
+        this.setState({notifications:notis});
+        console.log('This is it:');
+        console.log(this.state.notifications)
     };
 
-    api = async () => {
-        this.setState({isLoading:true});
-        await search_film(this.state.query,this.props.route.params.user.username ,this.search_result_setter);
-        this.setState({isLoading:false});
-    };
+    componentDidMount() {
+        get_notifications(this.props.route.params.user.username, this.update_notifications)
+    }
 
-    render(){
-        const loading = this.state.isLoading;
-        let result ;
-        if (loading){
-            result = <ActivityIndicator size="large" color="#0000ff" /> ;
-        }
-        else{
-
-        let data = this.state.result;
-            result = <FlatList
-                    data={data}
-                    keyExtractor={item => item.imdb_id}
-                    renderItem={({item}) =>(
-                        <Film
-                        film={item}
-                        like_status={item.like_status}
-                        user={this.props.route.params.user}
-                        />
+    render() {
+        let list = [{title:'One'}, {title:'Two'}];
+        let scrollview = <FlatList
+                        data={this.state.notifications}
+                        keyExtractor={item => item.imdb_id}
+                        renderItem={({item}) =>(
+                            <Suggestion notification={item} />
                         )} />;
-            }
-
         return(
             <View style={styles.home_screen}>
-                <View style={styles.row}>
-                    <TextInput
-                    style={styles.input}
-                    placeholder="enter a film title in english"
-                    onSubmitEditing={this.api.bind(this)}
-                    onChangeText={(text) => {this.setState({query:text})}}
-                    />
-                    <TouchableHighlight onPress={this.api.bind(this)}>
-                        <Text style={styles.btn}>Search</Text>
-                    </TouchableHighlight>
-                    </View>
-                <View style={styles.row}>
-                    {result}
-                </View>
+                {scrollview}
             </View>
         );
     }
 }
 
-
 const styles = StyleSheet.create({
-    home_screen: {
-        flex: 1,
-        alignItems: 'center',
-        // justifyContent: 'center',
-        backgroundColor: '#44c660',
-    },
-    welcome:{
-        fontSize:50,
-        color:'#375382',
-    },
-    input:{
+    home_screen : {
+        flex:1,
+        flexDirection:'column',
+        backgroundColor:'#0f0a30',
+        // margin:30,
         padding:10,
-        borderRadius:10,
-        height:40,
-        backgroundColor:'#90f8ff',
-        borderColor : '#202258',
-        borderWidth : 3,
-        width:'100%'
-    },
-    row:{
-        // backgroundColor:'red',
-        margin:30,
-        flexDirection:'row',
-    },
-    label:{
-        paddingTop:10,
-        paddingRight:20,
-        height: 40,
-        fontSize: 20,
-    },
-    btn:{
-        backgroundColor:'#004406',
-        color:'#fff',
-        padding:10,
-        borderRadius:20,
     }
 });
+
+export default Home;

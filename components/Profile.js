@@ -3,7 +3,6 @@ import {StyleSheet, ActivityIndicator, Image, View, Text, Button} from 'react-na
 
 class Profile extends Component {
     render() {
-        console.log(this.props.route.params.user.avatar);
         return (
             <View style={styles.profile_screen}>
                 <Image
@@ -13,6 +12,7 @@ class Profile extends Component {
                 <View style={styles.line} />
                 <Text>Username: {this.props.route.params.user.username}</Text>
                 <Text>name: {this.props.route.params.user.name}</Text>
+                <Text>Bio: {this.props.route.params.user.bio}</Text>
                 <Button
                     onPress={() => {this.props.route.params.success_function()}}
                     title={'Logout'}/>

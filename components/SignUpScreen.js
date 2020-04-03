@@ -1,28 +1,27 @@
 import React, {Component, useEffect, useState} from 'react';
 import {StyleSheet, Text, TextInput, TouchableHighlight, View} from 'react-native';
-import {login} from '../api/accounts';
+import {login, signup} from '../api/accounts';
 
-class WelcomeScreen extends Component {
+class SignUpScreen extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             username:'',
             password:'',
+            name:'',
         }
     }
 
     apiDidAuthenticate = () => {
-        this.props.navigation.navigate('Home')
+        this.props.navigation.navigate('Login' , {username_value:this.state.username})
     };
 
     onSubmit = async () => {
         let username = this.state.username;
         let password = this.state.password;
-        login(username, password, this.props.route.params.success_function);
-        console.log('PARAMS');
-        console.log(this.props.route.params.success_function);
-
+        let name = this.state.name;
+        signup(username, password,name , this.apiDidAuthenticate);
     };
 
 
@@ -38,6 +37,7 @@ class WelcomeScreen extends Component {
                     <Text style={styles.label}>Username:</Text>
                     <TextInput
                         style={styles.input}
+                        autoFocus={true}
                         onChangeText={(text) => this.setState({username: text})}
                         placeholder="insert your username!"
                     />
@@ -46,7 +46,6 @@ class WelcomeScreen extends Component {
                     <Text style={styles.label}>Password:</Text>
                     <TextInput
                         style={styles.input}
-                        // autoFocus={true}
                         onSubmitEditing={() => {
                             alert('password: ' + this.state.password)
                         }}
@@ -54,8 +53,17 @@ class WelcomeScreen extends Component {
                         placeholder="insert your password!"
                     />
                 </View>
+                <View style={styles.row}>
+                    <Text style={styles.label}>Full Name:</Text>
+                    <TextInput
+                        style={styles.input}
+                        onSubmitEditing={this.onSubmit}
+                        onChangeText={(text) => this.setState({name: text})}
+                        placeholder="insert your fullname!"
+                    />
+                </View>
                 <TouchableHighlight onPress={this.onSubmit}>
-                    <Text style={styles.btn}>Sign In</Text>
+                    <Text style={styles.btn}>Sign Up</Text>
                 </TouchableHighlight>
 
             </View>
@@ -102,4 +110,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default WelcomeScreen;
+export default SignUpScreen;
