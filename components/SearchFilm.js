@@ -8,7 +8,7 @@ export default class SearchFilm extends React.Component {
         super(props);
         this.state ={
             isLoading: false,
-            query:'',
+            query:'harry potter',
             result:[],
         }
     }
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
         margin:30,
         flexDirection:'row',
     },
-    label:{
+    label1:{
         paddingTop:10,
         paddingRight:20,
         height: 40,

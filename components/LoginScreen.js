@@ -35,7 +35,8 @@ class LoginScreen extends Component {
                 <View style={styles.row}>
                     <Text style={styles.label}>Username:</Text>
                     <TextInput
-                        // value={this.props.route.params.username_value}
+                        // value={'amin'}
+                        // autoFocus={true}
                         style={styles.input}
                         onChangeText={(text) => this.setState({username: text})}
                         placeholder="insert your username!"
@@ -44,9 +45,9 @@ class LoginScreen extends Component {
                 <View style={styles.row}>
                     <Text style={styles.label}>Password:</Text>
                     <TextInput
+                        // value={'1234'}
                         style={styles.input}
                         secureTextEntry={true}
-                        // autoFocus={true}
                         onSubmitEditing={() => {
                             alert('password: ' + this.state.password)
                         }}
@@ -88,7 +89,7 @@ const styles = StyleSheet.create({
         margin:30,
         flexDirection:'row',
     },
-    label:{
+    label1:{
         paddingTop:10,
         paddingRight:20,
         height: 40,

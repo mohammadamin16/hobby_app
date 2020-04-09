@@ -1,5 +1,5 @@
 import React, {Component, useEffect, useState} from 'react';
-import {StyleSheet, ActivityIndicator, Image, View, Text, TouchableHighlight, TouchableWithoutFeedback} from 'react-native';
+import {StyleSheet, ActivityIndicator, Image, View, Text, TouchableHighlight, TouchableWithoutFeedback,Button} from 'react-native';
 import like from '../img/like.png';
 import dislike from '../img/dislike.png';
 import {like_film} from '../api/accounts';

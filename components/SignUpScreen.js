@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
         margin:30,
         flexDirection:'row',
     },
-    label:{
+    label1:{
         paddingTop:10,
         paddingRight:20,
         height: 40,

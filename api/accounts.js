@@ -1,9 +1,11 @@
 import * as axios from 'axios';
 import {ToastAndroid} from 'react-native';
 
+const url = 'http://192.168.1.249:8000';
+// const url = 'https://vast-brushlands-59580.herokuapp.com';
 
 export async function login(username, password,success_function){
-    await axios.post('http://192.168.1.249:8000/api/login',{
+    await axios.post(url + '/api/login',{
         username:username,
         password:password,
     }).then( response => {
@@ -21,7 +23,7 @@ export async function login(username, password,success_function){
 
 
 export async function signup(username, password, name, success_function){
-    await axios.post('http://192.168.1.249:8000/api/signup',{
+    await axios.post(url + '/api/signup',{
         username:username,
         password:password,
         name:name,
@@ -39,7 +41,7 @@ export async function signup(username, password, name, success_function){
 
 
 export async function search_film(query,username , result_function) {
-    await axios.post('http://192.168.1.249:8000/api/search_film', {
+    await axios.post(url + '/api/search_film', {
         query: query,
         username: username,
     }).then(response => {
@@ -52,7 +54,7 @@ export async function search_film(query,username , result_function) {
 
 
 export async function like_film(username, film_id) {
-    await axios.post('http://192.168.1.249:8000/api/fav', {
+    await axios.post(url + '/api/fav', {
         username: username,
         film_id: film_id,
     }).then(response => {
@@ -64,7 +66,7 @@ export async function like_film(username, film_id) {
 
 
 export async function get_notifications(username, on_success) {
-    await axios.post('http://192.168.1.249:8000/api/get_notifications', {
+    await axios.post(url + '/api/get_notifications', {
         username: username,
     }).then(response => {
         let msg = response.data.msg;
@@ -82,7 +84,7 @@ export async function get_notifications(username, on_success) {
 
 
 export async function search_people(query, username, success_function) {
-    await axios.post('http://192.168.1.249:8000/api/search_people', {
+    await axios.post(url + '/api/search_people', {
         query: query,
         username: username,
     }).then(response => {
@@ -95,12 +97,35 @@ export async function search_people(query, username, success_function) {
 
 
 export async function send_request(username, friend_username) {
-    await axios.post('http://192.168.1.249:8000/api/friendship_request', {
+    await axios.post(url + '/api/friendship_request', {
         username: username,
         friend_username: friend_username,
     }).then(response => {
 
     ToastAndroid.show("Requested!", ToastAndroid.SHORT);
+    }).catch((response) => {
+        console.error(response);
+    });
+}
+
+export async function get_friends(username, success_function) {
+    await axios.post(url + '/api/get_friends', {
+        username: username,
+    }).then(response => {
+        success_function(response.data['friends'])
+    }).catch((response) => {
+    });
+}
+
+
+export async function suggest(username, film_id, title, text, success_function) {
+    await axios.post(url + '/api/suggest', {
+        username: username,
+        film_id: film_id,
+        title: title,
+        text: text,
+    }).then(response => {
+        success_function()
     }).catch((response) => {
         console.error(response);
     });

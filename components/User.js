@@ -44,7 +44,6 @@ class User extends Component {
                 <TouchableHighlight onPress={() => {this.request_friendship()}}>
                     <Image
                     style={{flex: 1, width: 50, height: 50}}
-                    // source={this.state.like_status ?  like : dislike}
                     source={this.state.friend_state ? remove_friend : add_friend}
 
                 />

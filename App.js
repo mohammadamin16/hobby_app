@@ -13,7 +13,7 @@ import People from './components/People';
 import Home from './components/Home';
 import FilmView from './components/FilmView';
 import UserView from './components/UserView';
-import Toast, {DURATION} from 'react-native-easy-toast'
+import Suggest_Screen from './components/Suggest_Screen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -23,6 +23,7 @@ function FilmSearchTab({ route, navigation }) {
                 <Stack.Navigator initialRouteName="SearchFilm">
                     <Stack.Screen name="FilmView" component={FilmView}/>
                     <Stack.Screen name="SearchFilm" component={SearchFilm} initialParams={{user: route.params.user}}/>
+                    <Stack.Screen name="SuggestScreen" component={Suggest_Screen} initialParams={{user: route.params.user}}/>
                 </Stack.Navigator>
         );
 }

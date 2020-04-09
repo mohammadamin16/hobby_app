@@ -23,14 +23,12 @@ class Home extends Component {
     }
 
     render() {
-        let list = [{title:'One'}, {title:'Two'}];
         let scrollview = <FlatList
                         data={this.state.notifications}
                         keyExtractor={item => item.imdb_id}
                         renderItem={({item}) =>(
                             <Suggestion notification={item} />
                         )} />;
-        ToastAndroid.show("Hi There!", ToastAndroid.SHORT);
         return(
             <View style={styles.home_screen}>
                 {scrollview}
@@ -44,7 +42,6 @@ const styles = StyleSheet.create({
         flex:1,
         flexDirection:'column',
         backgroundColor:'#0f0a30',
-        // margin:30,
         padding:10,
     }
 });
