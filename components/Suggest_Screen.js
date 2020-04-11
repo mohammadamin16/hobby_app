@@ -20,7 +20,8 @@ class Suggest_Screen extends Component {
     };
 
     send_suggest = () => {
-        suggest(this.props.route.params.user.username,this.props.route.params.film.imdb_id, this.state.title, this.state.text,this.on_send)
+        console.log(this.props.route.params.film);
+        suggest(this.props.route.params.user.username,this.props.route.params.film.imdbID, this.state.title, this.state.text,this.on_send)
     };
     render() {
         return (

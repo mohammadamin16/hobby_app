@@ -13,7 +13,11 @@ class Film extends Component {
         }
     }
     see_more = () => {
-        alert("Hobby is not complete yet!")
+        // this.props.navigation.navigate('FilmView', {film:this.props.notification.suggest.film})
+        this.props.navigation.navigate('Films', {
+              screen: 'FilmView',
+              params: { film:this.props.notification.suggest.film  },
+});
     };
 
 

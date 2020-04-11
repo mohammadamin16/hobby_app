@@ -22,8 +22,10 @@ class FilmView extends Component {
                     style={styles.poster}
                     source={{uri:this.props.route.params.film.poster}}
                     />
+                <View>
                 <Text style={styles.title}>{this.props.route.params.film["title"]}</Text>
-                <View style={styles.line} />
+                </View>
+                    <View style={styles.line} />
                 <View style={styles.row}>
                     <View style={{flex:1}}>
                         <Text style={styles.label1}>Year :</Text>

@@ -18,7 +18,6 @@ class Home extends Component {
     };
 
     componentDidMount() {
-
         get_notifications(this.props.route.params.user.username, this.update_notifications)
     }
 
@@ -27,7 +26,9 @@ class Home extends Component {
                         data={this.state.notifications}
                         keyExtractor={item => item.imdb_id}
                         renderItem={({item}) =>(
-                            <Suggestion notification={item} />
+                            <Suggestion
+                                navigation={this.props.navigation}
+                                notification={item} />
                         )} />;
         return(
             <View style={styles.home_screen}>

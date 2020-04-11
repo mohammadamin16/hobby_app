@@ -31,7 +31,7 @@ function FilmSearchTab({ route, navigation }) {
 
 function PeopleTab({ route, navigation }) {
         return (
-                <Stack.Navigator initialRouteName="SearchFilm">
+                <Stack.Navigator initialRouteName="PeopleSearch">
                     <Stack.Screen name="PeopleSearch" component={People} initialParams={{user: route.params.user}}/>
                     <Stack.Screen name="UserView" component={UserView} initialParams={{user: route.params.user}}/>
                 </Stack.Navigator>
