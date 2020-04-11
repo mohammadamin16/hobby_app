@@ -2,14 +2,17 @@ import React, {Component, useEffect, useState} from 'react';
 import {StyleSheet, ActivityIndicator, Image, View, Text, TouchableHighlight, TouchableWithoutFeedback,Button} from 'react-native';
 import like from '../img/like.png';
 import dislike from '../img/dislike.png';
-import {like_film} from '../api/accounts';
+import watch from '../img/watch.png';
+import unwatch from '../img/unwatch.png';
+import {like_film, watch_film} from '../api/accounts';
 
 
 class Film extends Component {
     constructor(props){
         super(props);
         this.state = {
-            like_status : props.like_status
+            like_status : props.like_status,
+            watch_status : props.watch_status
         }
     }
     render() {
@@ -25,25 +28,45 @@ class Film extends Component {
             <View style={{flex: 3, justifyContent: 'space-between'}}>
                 <Text>{this.props.film.title}</Text>
                 <Text>year: {this.props.film.year}</Text>
+                <View style={styles.row}>
                 <TouchableWithoutFeedback
-                    onPress={() => {
-                    like_film(this.props.user.username, this.props.film.imdb_id);
-                    this.setState(() => {
-                            if (this.state.like_status){
-                                return {like_status:false}
-                            }else{
-                                return {like_status:true}
+                        onPress={() => {
+                        like_film(this.props.user.username, this.props.film.imdb_id);
+                        this.setState(() => {
+                                if (this.state.like_status){
+                                    return {like_status:false}
+                                }else{
+                                    return {like_status:true}
+                                }
                             }
-                        }
-                    )
-                }}
-                style={{flex: 1, width: 50, height: 50}}
+                        )
+                    }}
+                    style={{flex: 1, width: 50, height: 50}}>
 
-                >
-                <Image
-                    style={{width: 50, height: 50}}
-                    source={this.state.like_status ?  like : dislike}/>
-                </TouchableWithoutFeedback>
+                    <Image
+                        style={{width: 50, height: 50}}
+                        source={this.state.like_status ?  like : dislike}/>
+                    </TouchableWithoutFeedback>
+                    <TouchableWithoutFeedback
+                        onPress={() => {
+                        watch_film(this.props.user.username, this.props.film.imdb_id);
+                        this.setState(() => {
+                                if (this.state.watch_status){
+                                    return {watch_status:false}
+                                }else{
+                                    return {watch_status:true}
+                                }
+                            }
+                        )
+                    }}
+                    style={{flex: 1, width: 50, height: 50}}>
+
+                    <Image
+                        style={{width: 50, height: 50}}
+                        source={this.state.watch_status ?  watch : unwatch}/>
+                    </TouchableWithoutFeedback>
+                </View>
+
 
                 </View>
                 <TouchableHighlight
@@ -64,7 +87,9 @@ class Film extends Component {
 }
 
 const styles = StyleSheet.create({
-//    styles should be here...
+    row:{
+        flexDirection:'row',
+    }
 
 });
 

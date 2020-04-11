@@ -40,6 +40,7 @@ export default class SearchFilm extends React.Component {
                             film={item}
                             navigation={this.props.navigation}
                             like_status={item.like_status}
+                            watch_status={item.watch_status}
                             user={this.props.route.params.user}
                             />
                         )} />;

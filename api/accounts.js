@@ -55,7 +55,18 @@ export async function like_film(username, film_id) {
         username: username,
         film_id: film_id,
     }).then(response => {
-        let r = response.data.films;
+        //WE CAN DO STH HERE...
+    }).catch((response) => {
+        console.error(response);
+    });
+}
+
+export async function watch_film(username, film_id) {
+    await axios.post(url + '/api/watch', {
+        username: username,
+        film_id: film_id,
+    }).then(response => {
+        //WE CAN DO STH HERE...
     }).catch((response) => {
         console.error(response);
     });
