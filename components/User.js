@@ -42,16 +42,14 @@ class User extends Component {
             <View style={{flex: 3, justifyContent: 'space-between'}}>
                 <Text>{this.props.user.name}</Text>
                 <TouchableHighlight onPress={() => {this.request_friendship()}}>
-                    <Image
+                <Image
                     style={{flex: 1, width: 50, height: 50}}
                     source={this.state.friend_state ? remove_friend : add_friend}
-
                 />
                 </TouchableHighlight>
-
                 </View>
                 <Image
-                    style={{flex: 1, }}
+                    style={{flex: 1,}}
                     source={{uri:this.props.user.avatar}}
                     PlaceholderContent={<ActivityIndicator/>}
                 />

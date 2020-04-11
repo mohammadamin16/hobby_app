@@ -14,6 +14,7 @@ import Home from './components/Home';
 import FilmView from './components/FilmView';
 import UserView from './components/UserView';
 import Suggest_Screen from './components/Suggest_Screen';
+import Friends from './components/Friends';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -63,10 +64,9 @@ class App extends React.Component{
                     <Tab.Screen name="Home" component={Home} initialParams={{user:this.state.user}} />
                     <Tab.Screen name="Profile" component={Profile} initialParams={{user:this.state.user, success_function:this.logout_user}} />
                     <Tab.Screen name="Films" component={FilmSearchTab} initialParams={{user:this.state.user}} />
+                    <Tab.Screen name="Friends" component={Friends} initialParams={{user:this.state.user}} />
                     <Tab.Screen name="People" component={PeopleTab} initialParams={{user:this.state.user}} />
                 </Tab.Navigator>
-            {/*<Stack.Navigator>*/}
-            {/*</Stack.Navigator>*/}
             </NavigationContainer>
         );
         }else {

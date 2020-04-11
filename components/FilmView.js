@@ -13,7 +13,6 @@ import {
 
 class FilmView extends Component {
     onSuggest = () => {
-        ToastAndroid.show("Suggested!", ToastAndroid.SHORT);
         this.props.navigation.navigate("SuggestScreen", {film:this.props.route.params.film})
     };
     render() {
