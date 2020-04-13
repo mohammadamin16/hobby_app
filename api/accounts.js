@@ -167,3 +167,12 @@ export async function get_requests(username, success_function) {
         console.error(response);
     });
 }
+
+
+export async function get_people(success_function) {
+    await axios.post(url + '/api/get_people', {}).then(response => {
+        success_function(response.data.users);
+    }).catch((response) => {
+        console.error(response);
+    });
+}

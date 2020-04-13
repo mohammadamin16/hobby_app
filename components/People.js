@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import {FlatList, ActivityIndicator, Text, View, StyleSheet, TextInput, TouchableHighlight, Image} from 'react-native';
-import {search_people} from '../api/accounts';
+import {search_people, get_people} from '../api/accounts';
 import Film from '../components/Film';
 import User from './User';
 
@@ -17,6 +17,12 @@ export default class People extends React.Component {
     search_result_setter = (data) => {
         this.setState({result:data});
     };
+
+    async componentDidMount(){
+        this.setState({isLoading:true});
+        await get_people(this.search_result_setter);
+        this.setState({isLoading:false});
+    }
 
     api = async () => {
         this.setState({isLoading:true});
