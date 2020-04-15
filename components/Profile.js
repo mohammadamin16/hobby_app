@@ -1,12 +1,84 @@
 import React, {Component, useEffect, useState} from 'react';
-import {StyleSheet, ActivityIndicator, Image, View, Text, Button, FlatList} from 'react-native';
+import {StyleSheet, ActivityIndicator, Image, View, Text, Button, FlatList,TouchableOpacity} from 'react-native';
 import Film from './Film';
-import {get_friends} from '../api/accounts';
+import {get_friends, change_avatar} from '../api/accounts';
+import ImagePicker from 'react-native-image-picker';
+import {ToastAndroid} from 'react-native';
+
+
 
 
 class Profile extends Component {
     state = {
-        friends:[]
+        friends:[],
+        image :{uri:this.props.route.params.user.avatar},
+    };
+
+    on_avatar_change = () => {
+        ToastAndroid.show("Avatar changed!", ToastAndroid.SHORT);
+    };
+
+
+    handleChoosePhoto = () => {
+        const options = {
+            noData: true,
+        };
+        ImagePicker.showImagePicker(options, (response) => {
+            console.log('Response = ', response);
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+            } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            } else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
+            } else {
+                const source = { uri: response.uri };
+
+                // You can also display the image using data:
+                // const source = { uri: 'data:image/jpeg;base64,' + response.data };
+
+                if (response.uri) {
+                    this.setState({ image: response });
+                    this.handleUploadPhoto()
+                }
+            }
+        });
+
+    };
+
+    createFormData = (photo, body) => {
+        const data = new FormData();
+
+        data.append("image", {
+            name: photo.fileName,
+            type: photo.type,
+            uri:
+            Platform.OS === "android" ? photo.uri : photo.uri.replace("file://", "")
+        });
+
+        Object.keys(body).forEach(key => {
+            data.append(key, body[key]);
+        });
+
+        return data;
+    };
+
+    handleUploadPhoto = () => {
+        const url = 'http://192.168.1.249:8000/api/change_avatar';
+        fetch(url, {
+            method: "POST",
+            body: this.createFormData(this.state.image, { username: this.props.route.params.user.username })
+            })
+        .then(response => response.json())
+        .then(response => {
+            console.log("upload success", response);
+            alert("Upload success!");
+            this.setState({ photo: null });
+        })
+        .catch(error => {
+            console.log("upload error", error);
+            alert("Upload failed!");
+        });
     };
 
     componentDidMount(){
@@ -25,8 +97,16 @@ class Profile extends Component {
                 <View style={styles.part1}>
                     <Image
                         style={{width:100, height:100}}
-                        source={{uri:this.props.route.params.user.avatar}}
+                        source={this.state.image}
                     />
+                    <View style={styles.row}>
+                        <TouchableOpacity onPress = {this.handleChoosePhoto}>
+                            <View style = {{backgroundColor: '#ffc863', alignItems: 'center',
+                                    justifyContent: 'center', borderRadius: 5}}>
+                                <Text style = {{color: 'white'}}>Change your avatar here</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
                     <View style={styles.row}>
                         <View style={{flex:1}}>
                         <Text style={styles.label1}>Username</Text>
@@ -53,6 +133,7 @@ class Profile extends Component {
                                 renderItem={({item}) =>(
                                     <Text style={styles.label2}>{item.name}</Text>
                                 )} />
+                   
                         </View>
                     </View>
                     {/*<Text>Friends: </Text>*/}
@@ -67,14 +148,25 @@ class Profile extends Component {
     }
 }
 
+const options = {
+  title: 'Select Avatar',
+  customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
+  storageOptions: {
+    skipBackup: true,
+    path: 'images',
+  },
+};
+
+
+
 const styles = StyleSheet.create({
     part1:{
         alignItems: 'center',
-        flex: 2,
+        flex: 3,
     },
     part2:{
         alignItems: 'center',
-        flex: 2,
+        flex: 3,
     },
     profile_screen: {
         flex: 1,

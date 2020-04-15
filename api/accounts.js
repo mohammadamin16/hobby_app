@@ -168,11 +168,41 @@ export async function get_requests(username, success_function) {
     });
 }
 
-
 export async function get_people(success_function) {
     await axios.post(url + '/api/get_people', {}).then(response => {
         success_function(response.data.users);
     }).catch((response) => {
         console.error(response);
     });
+}
+
+export async function change_avatar(success_function, image, username) {
+    let RNFS = require('react-native-fs');
+
+
+    RNFS.uploadFiles({
+        toUrl: url + '/api/change_avatar',
+        files: image,
+        method: 'POST',
+        headers: {
+        'Accept': 'application/json',
+        },
+        fields: {
+        'username': username,
+        },
+        }).promise.then((response) => {
+        if (response.statusCode == 200) {
+            console.log('FILES UPLOADED!'); // response.statusCode, response.headers, response.body
+            success_function()
+        } else {
+            console.log('SERVER ERROR');
+        }
+        })
+        .catch((err) => {
+            if(err.description === "cancelled") {
+            // cancelled by user
+            }
+        console.log(err);
+    });
+
 }
