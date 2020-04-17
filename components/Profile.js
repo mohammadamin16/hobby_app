@@ -96,7 +96,11 @@ class Profile extends Component {
             <View style={styles.profile_screen}>
                 <View style={styles.part1}>
                     <Image
-                        style={{width:100, height:100}}
+                        style={{
+                            width:100,
+                            height:100,
+                            borderRadius: 50,
+                        }}
                         source={this.state.image}
                     />
                     <View style={styles.row}>
