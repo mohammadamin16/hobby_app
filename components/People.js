@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import {FlatList, ActivityIndicator, Text, View, StyleSheet, TextInput, TouchableHighlight, Image} from 'react-native';
+import {FlatList, ActivityIndicator, Text, View, StyleSheet, TextInput, TouchableHighlight, Image, ScrollView} from 'react-native';
 import {search_people, get_people} from '../api/accounts';
 import Film from '../components/Film';
 import User from './User';
@@ -69,7 +69,9 @@ export default class People extends React.Component {
                     </TouchableHighlight>
                     </View>
                 <View style={styles.row}>
+                    <ScrollView>
                     {result}
+                    </ScrollView>
                 </View>
             </View>
         );

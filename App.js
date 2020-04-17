@@ -5,6 +5,8 @@ import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import LoginScreen from './components/LoginScreen';
 import SignUpScreen from './components/SignUpScreen';
 import SearchFilm from './components/SearchFilm';
@@ -17,7 +19,8 @@ import Suggest_Screen from './components/Suggest_Screen';
 import Friends from './components/Friends';
 
 const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator();
+// const Tab = createBottomTabNavigator();
+const Tab = createMaterialBottomTabNavigator();
 
 function FilmSearchTab({ route, navigation }) {
         return (
@@ -37,6 +40,7 @@ function PeopleTab({ route, navigation }) {
                 </Stack.Navigator>
         );
 }
+
 
 
 class App extends React.Component{
@@ -60,21 +64,90 @@ class App extends React.Component{
     if (this.state.logged_in){
         return (
             <NavigationContainer>
-                <Tab.Navigator>
-                    <Tab.Screen name="Home" component={Home} initialParams={{user:this.state.user}} />
-                    <Tab.Screen name="Profile" component={Profile} initialParams={{user:this.state.user, success_function:this.logout_user}} />
-                    <Tab.Screen name="Films" component={FilmSearchTab} initialParams={{user:this.state.user}} />
-                    <Tab.Screen name="Friends" component={Friends} initialParams={{user:this.state.user}} />
-                    <Tab.Screen name="People" component={PeopleTab} initialParams={{user:this.state.user}} />
+                <Tab.Navigator
+                    initialRouteName="Home"
+                    activeColor={'#ffffff'}
+                    inactiveColor={'#000000'}
+                    // barStyle={{ backgroundColor: '#a49ddb' }}
+                >
+
+                    <Tab.Screen
+                         options={{
+                                tabBarLabel: 'Home',
+                                tabBarColor:'#909eda',
+                                tabBarIcon: ({ color }) => (
+                                <MaterialCommunityIcons name="home" color={color} size={26} />
+                                ),
+                         }}
+                        name="Home" component={Home} initialParams={{user:this.state.user}} />
+                    <Tab.Screen
+                        options={{
+                                tabBarColor:'#a49ddb',
+                                tabBarLabel: 'Profile',
+                                tabBarIcon: ({ color }) => (
+                                <MaterialCommunityIcons name="account-circle" color={color} size={26} />
+                                ),
+                            }}
+                        name="Profile" component={Profile} initialParams={{user:this.state.user, success_function:this.logout_user}} />
+                    <Tab.Screen
+                                options={{
+                                tabBarColor:'#7cbc89',
+                                tabBarLabel: 'Films',
+                                tabBarIcon: ({ color }) => (
+                                <MaterialCommunityIcons name="filmstrip" color={color} size={26} />
+                                ),
+                            }}
+                        name="Films" component={FilmSearchTab} initialParams={{user:this.state.user}} />
+                    <Tab.Screen
+                        options={{
+                                tabBarColor:'#c1c578',
+                                tabBarLabel: 'Friends',
+                                tabBarIcon: ({ color }) => (
+                                <MaterialCommunityIcons name="bell" color={color} size={26} />
+                                ),
+                            }}
+                        name="Friends" component={Friends} initialParams={{user:this.state.user}} />
+                    <Tab.Screen
+                            options={{
+                                tabBarColor:'#8fd0cf',
+                                tabBarLabel: 'People',
+                                tabBarIcon: ({ color }) => (
+                                <MaterialCommunityIcons name="account-search" color={color} size={26} />
+                                ),
+                            }}
+                        name="People" component={PeopleTab} initialParams={{user:this.state.user}} />
                 </Tab.Navigator>
             </NavigationContainer>
         );
         }else {
             return(
                 <NavigationContainer>
-                    <Tab.Navigator>
-                        <Tab.Screen name="Login" component={LoginScreen} initialParams={{success_function:this.login_user}} />
-                        <Tab.Screen name="SignUpScreen" component={SignUpScreen} initialParams={{success_function:this.login_user}} />
+                    <Tab.Navigator
+                    initialRouteName="Login"
+                    activeColor={'#47ff2d'}
+                    inactiveColor={'#fff'}
+                    pressColor={'#fff'}
+                    barStyle={{ backgroundColor: '#694fad' }}
+                        >
+                        <Tab.Screen
+                            options={{
+                                    tabBarColor:'#fff',
+                                    barStyle: {backgroundColor: '#42ad37'},
+                                    tabBarLabel: 'Login',
+                                    tabBarIcon: ({color}) => (
+                                        <MaterialCommunityIcons name="login" color={color} size={26}/>
+                                    ),
+                                }}
+                            name="Login" component={LoginScreen} initialParams={{success_function:this.login_user}}
+                        />
+                        <Tab.Screen
+                            options={{
+                                tabBarLabel: 'Signup',
+                                tabBarIcon: ({ color }) => (
+                                <MaterialCommunityIcons name="account-plus" color={color} size={26} />
+                                ),
+                            }}
+                            name="SignUpScreen" component={SignUpScreen} initialParams={{success_function:this.login_user}} />
                     </Tab.Navigator>
                 </NavigationContainer>
             );
