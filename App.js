@@ -17,6 +17,7 @@ import FilmView from './components/FilmView';
 import UserView from './components/UserView';
 import Suggest_Screen from './components/Suggest_Screen';
 import Friends from './components/Friends';
+import {ToastAndroid} from 'react-native';
 
 const Stack = createStackNavigator();
 // const Tab = createBottomTabNavigator();
@@ -68,6 +69,7 @@ class App extends React.Component{
                     initialRouteName="Home"
                     activeColor={'#ffffff'}
                     inactiveColor={'#000000'}
+                    labeled={false}
                     // barStyle={{ backgroundColor: '#a49ddb' }}
                 >
 
@@ -124,10 +126,11 @@ class App extends React.Component{
                 <NavigationContainer>
                     <Tab.Navigator
                     initialRouteName="Login"
-                    activeColor={'#47ff2d'}
-                    inactiveColor={'#fff'}
+                    activeColor={'#fff'}
+                    inactiveColor={'#261a2f'}
                     pressColor={'#fff'}
-                    barStyle={{ backgroundColor: '#694fad' }}
+                    barStyle={{ backgroundColor: '#5533ad' }}
+                    labeled={false}
                         >
                         <Tab.Screen
                             options={{

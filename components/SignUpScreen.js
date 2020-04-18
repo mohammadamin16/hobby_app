@@ -1,6 +1,7 @@
 import React, {Component, useEffect, useState} from 'react';
-import {StyleSheet, Text, TextInput, TouchableHighlight, View} from 'react-native';
+import {Image, StyleSheet, Text, TextInput, TouchableHighlight, TouchableNativeFeedback, View} from 'react-native';
 import {login, signup} from '../api/accounts';
+import hobby from '../img/hobby.png';
 
 class SignUpScreen extends Component {
 
@@ -31,19 +32,22 @@ class SignUpScreen extends Component {
 
                 <View style={[styles.row, {alignItems: 'center'}]}>
                     <Text style={styles.welcome}>Hobby</Text>
+                    <Image
+                        style={{width:100, height:100}}
+                        source={hobby}
+                    />
                 </View>
 
                 <View style={styles.row}>
-                    <Text style={styles.label}>Username:</Text>
+                    {/*<Text style={styles.label}>Username:</Text>*/}
                     <TextInput
                         style={styles.input}
-                        autoFocus={true}
                         onChangeText={(text) => this.setState({username: text})}
                         placeholder="insert your username!"
                     />
                 </View>
                 <View style={styles.row}>
-                    <Text style={styles.label}>Password:</Text>
+                    {/*<Text style={styles.label}>Password:</Text>*/}
                     <TextInput
                         style={styles.input}
                         onSubmitEditing={() => {
@@ -54,7 +58,7 @@ class SignUpScreen extends Component {
                     />
                 </View>
                 <View style={styles.row}>
-                    <Text style={styles.label}>Full Name:</Text>
+                    {/*<Text style={styles.label}>Full Name:</Text>*/}
                     <TextInput
                         style={styles.input}
                         onSubmitEditing={this.onSubmit}
@@ -62,9 +66,13 @@ class SignUpScreen extends Component {
                         placeholder="insert your fullname!"
                     />
                 </View>
-                <TouchableHighlight onPress={this.onSubmit}>
-                    <Text style={styles.btn}>Sign Up</Text>
-                </TouchableHighlight>
+                <TouchableNativeFeedback
+                    onPress={this.onSubmit}
+                    background={TouchableNativeFeedback.Ripple('#2b5b2c', false)}>
+                    <View style={styles.btn}>
+                        <Text style={{color:'#fff'}}>Sign Up</Text>
+                    </View>
+                </TouchableNativeFeedback>
 
             </View>
         );
@@ -76,37 +84,37 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#44c660',
+        backgroundColor: '#7e6382',
     },
     welcome:{
         fontSize:50,
-        color:'#375382',
+        color:'#2f1d39',
+        fontWeight:'bold'
     },
     input:{
         padding:10,
         borderRadius:10,
         height:40,
-        backgroundColor:'#90f8ff',
-        borderColor : '#202258',
+        backgroundColor:'#39b8e2',
+        borderColor : '#164858',
         borderWidth : 3,
         width:'75%'
     },
     row:{
-        // backgroundColor:'red',
         margin:30,
         flexDirection:'row',
     },
-    label1:{
+    label:{
         paddingTop:10,
         paddingRight:20,
         height: 40,
         fontSize: 20,
     },
     btn:{
-        backgroundColor:'#004406',
+        backgroundColor:'#499a4a',
         color:'#fff',
         padding:10,
-        borderRadius:20,
+        borderRadius:8,
     }
 });
 

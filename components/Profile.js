@@ -33,11 +33,7 @@ class Profile extends Component {
                 console.log('User tapped custom button: ', response.customButton);
             } else {
                 const source = { uri: response.uri };
-
-                // You can also display the image using data:
-                // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-
-                if (response.uri) {
+          if (response.uri) {
                     this.setState({ image: response });
                     this.handleUploadPhoto()
                 }
@@ -114,7 +110,7 @@ class Profile extends Component {
                     <View style={styles.row}>
                         <View style={{flex:1}}>
                         <Text style={styles.label1}>Username</Text>
-                        <Text style={styles.label1}>Full Name</Text>
+                        <Text style={styles.label1}>Name</Text>
                         <Text style={styles.label1}>Bio</Text>
                         </View>
                         <View style={{flex:3}}>

@@ -13,7 +13,8 @@ export async function login(username, password,success_function){
         if (r['msg'] === 'success'){
             success_function(r['user'])
         }else{
-            alert(r['msg'])
+            ToastAndroid.show(r['msg'], ToastAndroid.LONG);
+            // alert(r['msg'])
         }
 
     }).catch((response) => {
@@ -31,7 +32,8 @@ export async function signup(username, password, name, success_function){
         if (r['msg'] === 'success'){
             success_function()
         }else{
-            alert(r['msg'])
+            ToastAndroid.show(r['msg'].toString(), ToastAndroid.LONG);
+            // alert(r['msg'])
         }
     }).catch((response) => {
         console.error(response);

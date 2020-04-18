@@ -1,7 +1,7 @@
 import React, {Component, useEffect, useState} from 'react';
-import {StyleSheet, Text, TextInput, TouchableHighlight, View} from 'react-native';
+import {StyleSheet, Text, TextInput, TouchableHighlight, View, Image, TouchableOpacity, TouchableNativeFeedback} from 'react-native';
 import {login} from '../api/accounts';
-
+import hobby from '../img/hobby.png';
 class LoginScreen extends Component {
 
     constructor(props) {
@@ -28,24 +28,26 @@ class LoginScreen extends Component {
         return (
             <View style={styles.welcome_screen}>
 
+
                 <View style={[styles.row, {alignItems: 'center'}]}>
                     <Text style={styles.welcome}>Hobby</Text>
+                    <Image
+                        style={{width:100, height:100}}
+                        source={hobby}
+                    />
                 </View>
 
                 <View style={styles.row}>
-                    <Text style={styles.label}>Username:</Text>
+                    {/*<Text style={styles.label}>Username:</Text>*/}
                     <TextInput
-                        // value={'amin'}
-                        // autoFocus={true}
                         style={styles.input}
                         onChangeText={(text) => this.setState({username: text})}
                         placeholder="insert your username!"
                     />
                 </View>
                 <View style={styles.row}>
-                    <Text style={styles.label}>Password:</Text>
+                    {/*<Text style={styles.label}>Password:</Text>*/}
                     <TextInput
-                        // value={'1234'}
                         style={styles.input}
                         secureTextEntry={true}
                         onSubmitEditing={() => {
@@ -55,9 +57,15 @@ class LoginScreen extends Component {
                         placeholder="insert your password!"
                     />
                 </View>
-                <TouchableHighlight onPress={this.onSubmit}>
-                    <Text style={styles.btn}>Sign In</Text>
-                </TouchableHighlight>
+
+                <TouchableNativeFeedback
+                    onPress={this.onSubmit}
+                    background={TouchableNativeFeedback.Ripple('#721f24', false)}>
+                    <View style={styles.btn}>
+                        <Text style={{color:'#fff'}}>Sign In</Text>
+                    </View>
+                </TouchableNativeFeedback>
+
 
             </View>
         );
@@ -69,37 +77,40 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#44c660',
+        backgroundColor: '#917296',
     },
     welcome:{
+        // fontStyle: 'italic',
         fontSize:50,
-        color:'#375382',
+        color:'#2f1d39',
+        fontWeight:'bold'
     },
     input:{
         padding:10,
         borderRadius:10,
         height:40,
-        backgroundColor:'#90f8ff',
-        borderColor : '#202258',
+        backgroundColor:'#39b8e2',
+        borderColor : '#164858',
         borderWidth : 3,
         width:'75%'
     },
     row:{
-        // backgroundColor:'red',
         margin:30,
         flexDirection:'row',
+        justifyContent: 'center',
+
     },
-    label1:{
-        paddingTop:10,
+    label:{
+        paddingTop:5,
         paddingRight:20,
         height: 40,
         fontSize: 20,
     },
     btn:{
-        backgroundColor:'#004406',
+        backgroundColor:'#ff2b63',
         color:'#fff',
         padding:10,
-        borderRadius:20,
+        borderRadius:8,
     }
 });
 
