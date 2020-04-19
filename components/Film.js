@@ -5,6 +5,7 @@ import dislike from '../img/dislike.png';
 import watch from '../img/watch.png';
 import unwatch from '../img/unwatch.png';
 import {like_film, watch_film} from '../api/accounts';
+import FitImage from 'react-native-fit-image';
 
 
 class Film extends Component {
@@ -24,11 +25,14 @@ class Film extends Component {
                 borderColor: '#3c46ff',
                 marginBottom: 10,
                 padding: 5,
+                width: '100%',
+                height: 100,
+
                 }}>
             <View style={{flex: 3, justifyContent: 'space-between'}}>
-                <Text>{this.props.film.title}</Text>
-                <Text>year: {this.props.film.year}</Text>
-                <View style={styles.row}>
+                <Text style={styles.title}>{this.props.film.title}</Text>
+                <View style={{flexDirection: 'row'}}><Text style={styles.year}>year:</Text><Text> {this.props.film.year}</Text></View>
+                <View style={styles.options}>
                 <TouchableWithoutFeedback
                         onPress={() => {
                         like_film(this.props.user.username, this.props.film.imdb_id);
@@ -44,7 +48,7 @@ class Film extends Component {
                     style={{flex: 1, width: 50, height: 50}}>
 
                     <Image
-                        style={{width: 50, height: 50}}
+                        style={{width: 30, height: 30, marginRight:10}}
                         source={this.state.like_status ?  like : dislike}/>
                     </TouchableWithoutFeedback>
                     <TouchableWithoutFeedback
@@ -62,7 +66,7 @@ class Film extends Component {
                     style={{flex: 1, width: 50, height: 50}}>
 
                     <Image
-                        style={{width: 50, height: 50}}
+                        style={{width: 30, height: 30}}
                         source={this.state.watch_status ?  watch : unwatch}/>
                     </TouchableWithoutFeedback>
                 </View>
@@ -75,11 +79,13 @@ class Film extends Component {
                     }}
                     style={{flex: 1}}
                 >
-                <Image
-                    style={{ width: '100%', height: 150}}
-                    source={{uri: this.props.film.icon}}
-                    PlaceholderContent={<ActivityIndicator/>}
-                />
+                <FitImage
+                    // PlaceholderContent={<ActivityIndicator/>}
+                    originalWidth={400}
+                    originalHeight={400}
+                    style={{borderRadius: 200,}}
+                    source={{uri:this.props.film.icon}}/>
+
                 </TouchableHighlight>
             </View>
         );
@@ -89,8 +95,20 @@ class Film extends Component {
 const styles = StyleSheet.create({
     row:{
         flexDirection:'row',
+    },
+    options:{
+        flexDirection: 'row',
+    },
+    title:{
+        fontSize: 20,
+        fontWeight: 'bold'
+    },
+    year:{
+        backgroundColor: '#656a86',
+        borderRadius: 5,
+        paddingRight:2,
+        paddingLeft:2,
     }
-
 });
 
 export default Film;

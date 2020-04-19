@@ -26,9 +26,9 @@ class Film extends Component {
     render() {
         return (
             <View style={{
-                backgroundColor: '#11ff38',
+                backgroundColor: '#87b7ff',
                 borderRadius: 5,
-                borderColor: '#155924',
+                borderColor: '#364966',
                 borderWidth:2.5,
                 marginBottom: 10,
                 }}>

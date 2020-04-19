@@ -16,6 +16,14 @@ export default class SearchFilm extends React.Component {
     search_result_setter = (data) => {
         this.setState({result:data});
     };
+    //TODO:DELETE ME!: This should bt DELETE after this commit
+
+    // async componentDidMount(){
+    //     this.setState({isLoading:true});
+    //     await search_film('Little women', this.props.route.params.user.username ,this.search_result_setter);
+    //     this.setState({isLoading:false});
+    // }
+
 
     api = async () => {
         this.setState({isLoading:true});
@@ -49,7 +57,7 @@ export default class SearchFilm extends React.Component {
         return(
             <ScrollView style={{backgroundColor: '#44c660',}}>
             <View style={styles.home_screen}>
-                <View style={styles.row}>
+                <View style={styles.searchbar}>
                     <TextInput
                     style={styles.input}
 
@@ -82,13 +90,13 @@ const styles = StyleSheet.create({
         color:'#375382',
     },
     input:{
+        flex:6,
         padding:10,
         borderRadius:10,
         height:40,
-        backgroundColor:'#90f8ff',
-        borderColor : '#202258',
-        borderWidth : 3,
-        width:'100%'
+        // backgroundColor:'#90f8ff',
+        // borderColor : '#202258',
+        // borderWidth : 3,
     },
     row:{
         // backgroundColor:'red',
@@ -102,9 +110,18 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     btn:{
+        flex:1,
         backgroundColor:'#004406',
         color:'#fff',
         padding:10,
-        borderRadius:20,
+        // borderRadius:20,
+    },
+    searchbar:{
+        flexDirection: 'row',
+        backgroundColor:'#90f8ff',
+        borderColor : '#202258',
+        borderWidth : 3,
+        width:'100%',
+        borderRadius: 10,
     }
 });
