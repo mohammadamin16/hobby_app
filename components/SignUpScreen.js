@@ -50,6 +50,7 @@ class SignUpScreen extends Component {
                     {/*<Text style={styles.label}>Password:</Text>*/}
                     <TextInput
                         style={styles.input}
+                        secureTextEntry={true}
                         onSubmitEditing={() => {
                             alert('password: ' + this.state.password)
                         }}

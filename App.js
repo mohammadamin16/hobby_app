@@ -25,7 +25,10 @@ const Tab = createMaterialBottomTabNavigator();
 
 function FilmSearchTab({ route, navigation }) {
         return (
-                <Stack.Navigator initialRouteName="SearchFilm">
+                <Stack.Navigator initialRouteName="SearchFilm"
+                    screenOptions={{
+                    headerShown: false
+                }}>
                     <Stack.Screen name="FilmView" component={FilmView}/>
                     <Stack.Screen name="SearchFilm" component={SearchFilm} initialParams={{user: route.params.user}}/>
                     <Stack.Screen name="SuggestScreen" component={Suggest_Screen} initialParams={{user: route.params.user}}/>
@@ -35,7 +38,10 @@ function FilmSearchTab({ route, navigation }) {
 
 function PeopleTab({ route, navigation }) {
         return (
-                <Stack.Navigator initialRouteName="PeopleSearch">
+                <Stack.Navigator initialRouteName="PeopleSearch"
+                    screenOptions={{
+                    headerShown: false
+                    }}>
                     <Stack.Screen name="PeopleSearch" component={People} initialParams={{user: route.params.user}}/>
                     <Stack.Screen name="UserView" component={UserView} initialParams={{user: route.params.user}}/>
                 </Stack.Navigator>
@@ -55,7 +61,7 @@ class App extends React.Component{
         this.setState({logged_in:true});
 
     };
-    logout_user = (user) =>{
+    logout_user = () =>{
         this.setState({user:{}});
         this.setState({logged_in:false});
     };

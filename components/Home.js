@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
         flex:1,
         flexDirection:'column',
         backgroundColor:'#0f0a30',
-        padding:10,
+        padding:'2%',
     }
 });
 
