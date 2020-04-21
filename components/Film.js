@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         marginBottom: 10,
         padding: 5,
-        width: '100%',
+        width: '80%',
         height: 150,
     },
     row:{

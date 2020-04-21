@@ -22,6 +22,14 @@ class Friends extends Component {
         get_requests(this.props.route.params.user.username, this.update_requests);
     };
 
+    get_msg = () => {
+        if (this.state.requests.length === 0){
+            return ("You don't have any requests!");
+        }else{
+            return ("Your Friendship Requests is here:");
+        }
+    };
+
     componentDidMount() {
         this.get_reqs();
     }
@@ -49,7 +57,7 @@ class Friends extends Component {
                     textAlign: 'center',
                     borderRadius: 10
                 }}>
-                    Your Friendship Requests is here:
+                    {this.get_msg()}
                 </Text>
                 {scrollview}
             </View>

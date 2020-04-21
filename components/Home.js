@@ -1,5 +1,15 @@
 import React, {Component, useEffect, useState} from 'react';
-import {StyleSheet, ActivityIndicator, Image, View, Text, Button, FlatList,ToastAndroid} from 'react-native';
+import {
+    StyleSheet,
+    ActivityIndicator,
+    Image,
+    View,
+    Text,
+    Button,
+    FlatList,
+    ToastAndroid,
+    RefreshControl,
+} from 'react-native';
 import Suggestion from '../components/Suggestion';
 import {get_notifications} from '../api/accounts';
 import Film from './Film';
@@ -9,20 +19,26 @@ class Home extends Component {
     constructor(props){
         super(props);
         this.state = {
+            loading:true,
             notifications:[]
         }
     }
 
     update_notifications = (notis) => {
         this.setState({notifications:notis});
+        this.setState({loading:false})
+    };
+    get_notis = () => {
+        get_notifications(this.props.route.params.user.username, this.update_notifications)
     };
 
     componentDidMount() {
-        get_notifications(this.props.route.params.user.username, this.update_notifications)
+        this.get_notis()
     }
 
     render() {
         let scrollview = <FlatList
+                        refreshControl={<RefreshControl refreshing={this.state.loading} onRefresh={this.get_notis}/>}
                         data={this.state.notifications}
                         keyExtractor={item => item.imdb_id}
                         renderItem={({item}) =>(

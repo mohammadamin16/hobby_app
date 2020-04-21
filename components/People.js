@@ -1,8 +1,9 @@
 import React,{useState} from 'react';
-import {FlatList, ActivityIndicator, Text, View, StyleSheet, TextInput, TouchableHighlight, Image, ScrollView} from 'react-native';
+import {FlatList, ActivityIndicator, Text, View, StyleSheet, TextInput, TouchableHighlight,TouchableWithoutFeedback, Image, ScrollView} from 'react-native';
 import {search_people, get_people} from '../api/accounts';
 import Film from '../components/Film';
 import User from './User';
+import white_search from '../img/white_search.png';
 
 export default class People extends React.Component {
     constructor(props){
@@ -44,34 +45,31 @@ export default class People extends React.Component {
                     keyExtractor={item => item.username}
                     renderItem={({item}) =>(
                         <TouchableHighlight
-                        onPress={() => {
-                            this.go_to_user_view(item)
-                        }}>
-                        <User
-                        signed_user={this.props.route.params.user}
-                        user={item}
-                        />
+                            onPress={() => {this.go_to_user_view(item)}}>
+                                <User
+                                    signed_user={this.props.route.params.user}
+                                    user={item}/>
                         </TouchableHighlight>
-                        )} />;
-            }
+                    )} />;
+                }
 
         return(
             <View style={styles.people_screen}>
-                <View style={styles.row}>
+                <View style={styles.searchbar}>
                     <TextInput
                     style={styles.input}
-                    placeholder="Search for username or names"
+                    placeholder="enter a film title in english"
                     onSubmitEditing={this.api.bind(this)}
                     onChangeText={(text) => {this.setState({query:text})}}
                     />
-                    <TouchableHighlight onPress={this.api.bind(this)}>
-                        <Text style={styles.btn}>Search</Text>
-                    </TouchableHighlight>
-                    </View>
+                    <TouchableWithoutFeedback onPress={this.api.bind(this)}>
+                        <View style={styles.btn}>
+                            <Image source={white_search} style={{width:35, height:35}} />
+                        </View>
+                    </TouchableWithoutFeedback>
+                </View>
                 <View style={styles.row}>
-                    <ScrollView>
                     {result}
-                    </ScrollView>
                 </View>
             </View>
         );
@@ -91,13 +89,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#4492c6',
     },
     input:{
+        flex:6,
         padding:10,
         borderRadius:10,
         height:40,
-        backgroundColor:'#90f8ff',
-        borderColor : '#202258',
-        borderWidth : 3,
-        width:'100%'
     },
     row:{
         // backgroundColor:'red',
@@ -111,9 +106,22 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     btn:{
-        backgroundColor:'#004406',
+        flex:1,
+        backgroundColor:'#111330',
         color:'#fff',
-        padding:10,
-        borderRadius:20,
+        padding:10,justifyContent: 'center',
+        alignItems: 'center',
+        paddingLeft: 20,
+        height:40,
+        width:60
+    },
+
+    searchbar:{
+        flexDirection: 'row',
+        backgroundColor:'#316a90',
+        borderColor : '#202258',
+        borderWidth : 3,
+        width:'100%',
+        borderRadius: 7,
     }
 });

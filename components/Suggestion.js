@@ -69,7 +69,7 @@ class Film extends Component {
                             onPress={this.see_more}
                             >
                             <View style={{flexDirection: 'row', justifyContent:'center'}}>
-                                <Text style={{color:'#fff', backgroundColor: '#1f3040', borderRadius:5, paddingRight:5, paddingLeft:5}}>{this.props.notification.suggest.film.title}</Text>
+                                <Text style={{color:'#fff', backgroundColor: '#1f3040', borderRadius:5, paddingRight:5, paddingLeft:5}}>{this.props.notification.suggest.film.title}({this.props.notification.suggest.film.year})</Text>
                                 <Text style={{color:'#ff4513'}}>See more...</Text>
                             </View>
                             </TouchableHighlight>

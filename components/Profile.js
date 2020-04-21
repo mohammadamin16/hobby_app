@@ -59,8 +59,8 @@ class Profile extends Component {
     };
 
     handleUploadPhoto = () => {
-        // const url = 'https://vast-brushlands-59580.herokuapp.com/api/change_avatar';
-        const url = 'http://192.168.1.249:8000/api/change_avatar';
+        const url = 'https://vast-brushlands-59580.herokuapp.com/api/change_avatar';
+        // const url = 'http://192.168.1.249:8000/api/change_avatar';
         fetch(url, {
             method: "POST",
             body: this.createFormData(this.state.image, { username: this.props.route.params.user.username })

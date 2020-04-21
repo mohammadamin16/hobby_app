@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import {FlatList, ActivityIndicator, Text, View, StyleSheet, TextInput, TouchableHighlight, Image,ScrollView} from 'react-native';
 import {search_film} from '../api/accounts';
 import Film from '../components/Film';
+import search from '../img/search.png';
 
 export default class SearchFilm extends React.Component {
     constructor(props){
@@ -56,9 +57,11 @@ export default class SearchFilm extends React.Component {
                     onChangeText={(text) => {this.setState({query:text})}}
                     />
                     <TouchableHighlight onPress={this.api.bind(this)}>
-                        <Text style={styles.btn}>Search</Text>
+                        <View style={styles.btn}>
+                        <Image source={search} style={{width:37, height:37}} />
+                        </View>
                     </TouchableHighlight>
-                    </View>
+                </View>
                 <View style={styles.row}>
                     <ScrollView>
                     {result}
@@ -87,9 +90,6 @@ const styles = StyleSheet.create({
         padding:10,
         borderRadius:10,
         height:40,
-        // backgroundColor:'#90f8ff',
-        // borderColor : '#202258',
-        // borderWidth : 3,
     },
     row:{
         // backgroundColor:'red',
@@ -106,15 +106,18 @@ const styles = StyleSheet.create({
         flex:1,
         backgroundColor:'#004406',
         color:'#fff',
-        padding:10,
-        // borderRadius:20,
+        padding:10,justifyContent: 'center',
+        alignItems: 'center',
+        paddingLeft: 20,
+        height:40,
+        width:60
     },
     searchbar:{
         flexDirection: 'row',
-        backgroundColor:'#90f8ff',
+        backgroundColor:'#377842',
         borderColor : '#202258',
         borderWidth : 3,
         width:'100%',
-        borderRadius: 10,
+        borderRadius: 7,
     }
 });
