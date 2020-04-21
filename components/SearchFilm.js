@@ -8,22 +8,15 @@ export default class SearchFilm extends React.Component {
         super(props);
         this.state ={
             isLoading: false,
-            query:'harry potter',
-            result:[],
+            query:'',
+            result:[]
+,
         }
     }
 
     search_result_setter = (data) => {
         this.setState({result:data});
     };
-    //TODO:DELETE ME!: This should bt DELETE after this commit
-
-    // async componentDidMount(){
-    //     this.setState({isLoading:true});
-    //     await search_film('Little women', this.props.route.params.user.username ,this.search_result_setter);
-    //     this.setState({isLoading:false});
-    // }
-
 
     api = async () => {
         this.setState({isLoading:true});
@@ -40,27 +33,24 @@ export default class SearchFilm extends React.Component {
         else{
 
         let data = this.state.result;
-            result = <FlatList
-                    data={data}
-                    keyExtractor={item => item.imdb_id}
-                    renderItem={({item}) =>(
-                            <Film
-                            film={item}
-                            navigation={this.props.navigation}
-                            like_status={item.like_status}
-                            watch_status={item.watch_status}
-                            user={this.props.route.params.user}
-                            />
-                        )} />;
+            result = this.state.result.map((item) =>
+            <Film
+                key={item.imdbID}
+                film={item}
+                navigation={this.props.navigation}
+                like_status={item.like_status}
+                watch_status={item.watch_status}
+                user={this.props.route.params.user}
+                />
+                )
             }
 
         return(
-            <ScrollView style={{backgroundColor: '#44c660',}}>
+
             <View style={styles.home_screen}>
                 <View style={styles.searchbar}>
                     <TextInput
                     style={styles.input}
-
                     placeholder="enter a film title in english"
                     onSubmitEditing={this.api.bind(this)}
                     onChangeText={(text) => {this.setState({query:text})}}
@@ -70,10 +60,12 @@ export default class SearchFilm extends React.Component {
                     </TouchableHighlight>
                     </View>
                 <View style={styles.row}>
+                    <ScrollView>
                     {result}
+                    </ScrollView>
                 </View>
             </View>
-        </ScrollView>
+                // </View>
         );
     }
 }
@@ -83,6 +75,7 @@ const styles = StyleSheet.create({
     home_screen: {
         flex: 1,
         alignItems: 'center',
+        backgroundColor: '#44c660',
         // justifyContent: 'center',
     },
     welcome:{

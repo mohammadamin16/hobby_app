@@ -1,5 +1,5 @@
 import React, {Component, useEffect, useState} from 'react';
-import {StyleSheet, ActivityIndicator, Image,Button, View, Text, TouchableHighlight, TextInput,ScrollView} from 'react-native';
+import {StyleSheet, ActivityIndicator, Image,Button, View, Text, TouchableHighlight, TextInput,ScrollView,ImageBackground} from 'react-native';
 import like from '../img/like.png';
 import dislike from '../img/dislike.png';
 import {like_film} from '../api/accounts';
@@ -25,38 +25,27 @@ class Suggest_Screen extends Component {
     };
     render() {
         return (
+            <ImageBackground source={{uri:this.props.route.params.film.poster}} style={styles.image}>
             <View style={{
+
                 flex:1,
-                backgroundColor: '#5592ff',
+                backgroundColor: '#000000',
                 padding: 5,
+                alignItems: 'center',
                 }}>
-                {/*<ScrollView style={{*/}
-                {/*    flex:1,*/}
-                {/*    flexDirection:'column',*/}
-                {/*}}*/}
-                {/*contentContainerStyle={{ flexGrow: 1 }}*/}
-                {/*>*/}
-                <View style={{
-                    alignItems: 'center',
-                }}>
-                <Text style={{fontSize:40,}}>Create Suggest</Text>
-                <Text>{this.props.route.params.film.title}</Text>
-                <Image
-                    source={{uri:this.props.route.params.film.poster}}
-                    style={styles.poster}
-                />
-                <Text style={styles.label}>Title:</Text>
+
+                <Text style={styles.suggest_on}>Suggest On:</Text>
+                <Text style={styles.film_title}>{this.props.route.params.film.title}</Text>
 
                 <TextInput
                         style={styles.input}
                         onChangeText={(text) => this.setState({title: text})}
-                        placeholder="e.g : best movie ever!"
+                        placeholder="title, like : best movie ever!"
                 />
-                <Text style={styles.label}>Text:</Text>
                 <TextInput
                         style={styles.input}
                         onChangeText={(text) => this.setState({text: text})}
-                        placeholder="e.g : I strongly suggest you to don't miss one the funniest movie in the world!"
+                        placeholder="Suggestion body"
                 />
                     <View style={{paddingTop:10}}>
                         <TouchableHighlight
@@ -65,9 +54,8 @@ class Suggest_Screen extends Component {
                             <Text> {'Suggest to Friends'}</Text>
                         </TouchableHighlight>
                     </View>
-                </View>
-            {/*</ScrollView>*/}
             </View>
+            </ImageBackground>
         );
     }
 }
@@ -82,10 +70,11 @@ const styles = StyleSheet.create({
         padding:10,
         borderRadius:10,
         height:40,
-        backgroundColor:'#90f8ff',
-        borderColor : '#202258',
-        borderWidth : 3,
-        width:'75%'
+        backgroundColor:'#f7ffb0',
+        borderColor : '#583d16',
+        borderWidth : 2,
+        width:'75%',
+        margin: 10,
     },
     label1:{
         paddingTop:10,
@@ -98,6 +87,24 @@ const styles = StyleSheet.create({
         padding:5,
         margin:10,
         borderRadius:15,
+    },
+    image: {
+        flex: 1,
+        resizeMode: "cover",
+        justifyContent: "center",
+        opacity: 0.7
+    },
+    suggest_on:{
+        fontSize: 20,
+        color:'#fff',
+        fontStyle: 'italic'
+    },
+    film_title:{
+        color:'#192627',
+        fontWeight: 'bold',
+        backgroundColor: '#8bd8de',
+        borderRadius: 10,
+        padding:5
     }
 });
 

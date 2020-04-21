@@ -1,8 +1,8 @@
 import * as axios from 'axios';
 import {ToastAndroid} from 'react-native';
 
-// const url = 'http://192.168.1.249:8000';
-const url = 'https://vast-brushlands-59580.herokuapp.com';
+const url = 'http://192.168.1.249:8000';
+// const url = 'https://vast-brushlands-59580.herokuapp.com';
 
 export async function login(username, password,success_function){
     await axios.post(url + '/api/login',{
@@ -14,7 +14,6 @@ export async function login(username, password,success_function){
             success_function(r['user'])
         }else{
             ToastAndroid.show(r['msg'], ToastAndroid.LONG);
-            // alert(r['msg'])
         }
 
     }).catch((response) => {
@@ -63,8 +62,31 @@ export async function like_film(username, film_id) {
     });
 }
 
+export async function dislike_film(username, film_id) {
+    await axios.post(url + '/api/disfav', {
+        username: username,
+        film_id: film_id,
+    }).then(response => {
+        //WE CAN DO STH HERE...
+    }).catch((response) => {
+        console.error(response);
+    });
+}
+
 export async function watch_film(username, film_id) {
     await axios.post(url + '/api/watch', {
+        username: username,
+        film_id: film_id,
+    }).then(response => {
+        //WE CAN DO STH HERE...
+    }).catch((response) => {
+        console.error(response);
+    });
+}
+
+
+export async function unwatch_film(username, film_id) {
+    await axios.post(url + '/api/unwatch', {
         username: username,
         film_id: film_id,
     }).then(response => {

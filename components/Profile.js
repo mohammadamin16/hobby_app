@@ -59,7 +59,8 @@ class Profile extends Component {
     };
 
     handleUploadPhoto = () => {
-        const url = 'https://vast-brushlands-59580.herokuapp.com/api/change_avatar';
+        // const url = 'https://vast-brushlands-59580.herokuapp.com/api/change_avatar';
+        const url = 'http://192.168.1.249:8000/api/change_avatar';
         fetch(url, {
             method: "POST",
             body: this.createFormData(this.state.image, { username: this.props.route.params.user.username })
@@ -176,7 +177,7 @@ class Profile extends Component {
                     <Text style={styles.friends_text}>Friends:</Text>
                     <View style={styles.line} />
                     <TouchableOpacity
-                        onPress={() => {alert("Hobby is not complete yet!")}}>
+                        onPress={() => {ToastAndroid.show('Hobby is not complete yet!', ToastAndroid.SHORT);}}>
                         <View style={{backgroundColor:'#000',borderRadius: 15,}}>
                             <MaterialCommunityIcons name="account-edit" color={'#9483eb'} size={30} />
                         </View>
@@ -210,6 +211,7 @@ class Profile extends Component {
         );
     }
 }
+
 
 
 

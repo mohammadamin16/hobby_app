@@ -4,7 +4,7 @@ import like from '../img/like.png';
 import dislike from '../img/dislike.png';
 import watch from '../img/watch.png';
 import unwatch from '../img/unwatch.png';
-import {like_film, watch_film} from '../api/accounts';
+import {like_film, dislike_film, unwatch_film, watch_film} from '../api/accounts';
 import FitImage from 'react-native-fit-image';
 
 
@@ -18,28 +18,22 @@ class Film extends Component {
     }
     render() {
         return (
-            <View style={{
-                flexDirection: 'row',
-                backgroundColor: '#5592ff',
-                borderRadius: 10,
-                borderColor: '#3c46ff',
-                marginBottom: 10,
-                padding: 5,
-                width: '100%',
-                height: 100,
+            <View style={styles.film}>
+            <View style={{flex: 3, justifyContent: 'space-between', alignItems: 'center'}}>
 
-                }}>
-            <View style={{flex: 3, justifyContent: 'space-between'}}>
                 <Text style={styles.title}>{this.props.film.title}</Text>
-                <View style={{flexDirection: 'row'}}><Text style={styles.year}>year:</Text><Text> {this.props.film.year}</Text></View>
+                <View style={styles.info_row}>
+                    <Text style={styles.year_number}>{this.props.film.year}</Text><Text style={styles.rate_number}> {this.props.film.rating}</Text>
+                </View>
                 <View style={styles.options}>
                 <TouchableWithoutFeedback
                         onPress={() => {
-                        like_film(this.props.user.username, this.props.film.imdb_id);
                         this.setState(() => {
                                 if (this.state.like_status){
+                                    dislike_film(this.props.user.username, this.props.film.imdbID);
                                     return {like_status:false}
                                 }else{
+                                    like_film(this.props.user.username, this.props.film.imdbID);
                                     return {like_status:true}
                                 }
                             }
@@ -53,11 +47,12 @@ class Film extends Component {
                     </TouchableWithoutFeedback>
                     <TouchableWithoutFeedback
                         onPress={() => {
-                        watch_film(this.props.user.username, this.props.film.imdb_id);
                         this.setState(() => {
                                 if (this.state.watch_status){
+                                    unwatch_film(this.props.user.username, this.props.film.imdbID);
                                     return {watch_status:false}
                                 }else{
+                                    watch_film(this.props.user.username, this.props.film.imdbID);
                                     return {watch_status:true}
                                 }
                             }
@@ -81,9 +76,9 @@ class Film extends Component {
                 >
                 <FitImage
                     // PlaceholderContent={<ActivityIndicator/>}
-                    originalWidth={400}
+                    originalWidth={300}
                     originalHeight={400}
-                    style={{borderRadius: 200,}}
+                    style={{alignItems:'center'}}
                     source={{uri:this.props.film.icon}}/>
 
                 </TouchableHighlight>
@@ -93,6 +88,17 @@ class Film extends Component {
 }
 
 const styles = StyleSheet.create({
+    film:{
+        flexDirection: 'row',
+        backgroundColor: '#56ff71',
+        borderRadius: 10,
+        borderColor: '#17a92f',
+        borderWidth: 2,
+        marginBottom: 10,
+        padding: 5,
+        width: '100%',
+        height: 150,
+    },
     row:{
         flexDirection:'row',
     },
@@ -100,14 +106,23 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     title:{
+        textAlign: 'center',
         fontSize: 20,
         fontWeight: 'bold'
     },
-    year:{
-        backgroundColor: '#656a86',
-        borderRadius: 5,
-        paddingRight:2,
-        paddingLeft:2,
+    info_row:{
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    rate_number: {
+        backgroundColor: '#b0af22',
+        borderRadius: 10,
+        padding:5,
+    },
+    year_number: {
+        backgroundColor: '#606aee',
+        borderRadius: 10,
+        padding:5,
     }
 });
 
