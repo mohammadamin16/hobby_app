@@ -28,7 +28,7 @@ export default class SearchFilm extends React.Component {
         const loading = this.state.isLoading;
         let result ;
         if (loading){
-            result = <ActivityIndicator size="large" color="#0000ff" /> ;
+            result = <ActivityIndicator size="large" color='#0000ff' /> ;
         }
         else{
 

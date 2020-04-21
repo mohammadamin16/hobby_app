@@ -9,13 +9,9 @@ import {
     TouchableWithoutFeedback,
     Button
 } from 'react-native';
-import like from '../img/like.png';
-import dislike from '../img/dislike.png';
-import {like_film} from '../api/accounts';
-import remove_friend from '../img/remove_friend.png';
-import add_friend from '../img/add_friend.png';
 import {send_request, accept_request, deny_request} from '../api/accounts';
-
+import deny from '../img/deny.png';
+import accept from '../img/accept.png';
 
 
 class Request extends Component {
@@ -27,7 +23,8 @@ class Request extends Component {
     }
 
     on_accept = () => {
-        accept_request(this.props.signed_user.username, this.props.user.username)
+        accept_request(this.props.signed_user.username, this.props.user.username);
+        this.props.reload();
     };
 
     on_deny = () => {
@@ -43,33 +40,38 @@ class Request extends Component {
         }
     };
 
+    go_to_user = () => {
+        this.props.navigation.navigate('People', {
+            screen: 'UserView',
+            params: {user: this.props.user},
+        });
+    };
+
     render() {
         return (
-               <View style={{
-                backgroundColor: '#11ff38',
-                borderRadius: 5,
-                borderColor: '#155924',
-                borderWidth:2.5,
-                margin: 10,
-                }}>
+               <View style={styles.body}>
                 <View style={{flex: 1, justifyContent: 'space-between', alignItems:'center'}}>
                     <View style={[styles.row, {justifyContent: 'space-between',padding: 5}]}>
+                        <TouchableWithoutFeedback
+                            onPress={this.go_to_user}>
                         <Image
-                            style={{width:70, height:70, alignSelf:'center'}}
+                            style={styles.poster}
                             source={{uri:this.props.user.avatar}}/>
-                        <Text
-                            style={{
-                                padding:10,
-                            }}>
-                        {this.props.user.name}</Text>
+                        </TouchableWithoutFeedback>
                     </View>
-                    
+                        <Text style={styles.username}>@{this.props.user.username}</Text>
+                        <Text style={styles.name}>{this.props.user.name}</Text>
+
                     <View style={styles.line} />
-                    <View style={{flexDirection: 'row', padding: 5}}>
-                        <Button
-                            style={{backgroundColor:'red'}}
-                            title={'Accept'} onPress={this.on_accept} />
-                        <Button title={'Deny'} onPress={this.on_deny} />
+                    <View style={{flexDirection: 'row', padding: 5, width:'100%', justifyContent: 'center'}}>
+                            <TouchableWithoutFeedback
+                                onPress={this.on_accept}>
+                                <Image source={accept} style={{width:50, height:50, marginRight:50}}/>
+                            </TouchableWithoutFeedback>
+                            <TouchableWithoutFeedback
+                                onPress={this.on_deny}>
+                                <Image source={deny} style={{width:50, height:50}}/>
+                            </TouchableWithoutFeedback>
                     </View>
                 </View>
             </View>
@@ -79,8 +81,35 @@ class Request extends Component {
 }
 
 const styles = StyleSheet.create({
-//    styles should be here...
-
+    body:{
+        backgroundColor: '#11ff38',
+        borderRadius: 5,
+        borderColor: '#155924',
+        borderWidth:2.5,
+        margin: 10,
+        width:'80%'
+    },
+    poster:{
+        backgroundColor: '#000000',
+        width:100,
+        height:100,
+        alignSelf:'center',
+        borderRadius: 50,
+        borderColor: '#155924',
+        borderWidth: 2
+    },
+    username:{
+        padding:5,
+        textAlign: 'center',
+        fontStyle:'italic',
+        backgroundColor: '#08220e',
+        borderRadius: 10,
+        color: '#fff'
+    },
+    name:{
+        padding:0,
+        fontSize:20
+    }
 });
 
 export default Request;

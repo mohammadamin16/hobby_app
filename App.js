@@ -98,13 +98,13 @@ class App extends React.Component{
                             }}
                         name="Profile" component={Profile} initialParams={{user:this.state.user, success_function:this.logout_user}} />
                     <Tab.Screen
-                                options={{
-                                tabBarColor:'#7cbc89',
-                                tabBarLabel: 'Films',
-                                tabBarIcon: ({ color }) => (
-                                <MaterialCommunityIcons name="filmstrip" color={color} size={26} />
-                                ),
-                            }}
+                        options={{
+                            tabBarColor:'#7cbc89',
+                            tabBarLabel: 'Films',
+                            tabBarIcon: ({ color }) => (
+                            <MaterialCommunityIcons name="filmstrip" color={color} size={26} />
+                            ),
+                        }}
                         name="Films" component={FilmSearchTab} initialParams={{user:this.state.user}} />
                     <Tab.Screen
                         options={{
