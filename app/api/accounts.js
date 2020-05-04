@@ -1,8 +1,7 @@
 import * as axios from 'axios';
 import {ToastAndroid} from 'react-native';
+import url from '../../config/url';
 
-const url = 'http://192.168.1.249:8000';
-// const url = 'https://vast-brushlands-59580.herokuapp.com';
 
 
 
@@ -11,6 +10,7 @@ export async function login(username, password, on_success){
         username:username,
         password:password,
     }).then( response => {
+
         let r = response.data;
         if (r['msg'] === 'success'){
             on_success(r['user'])

@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
         borderWidth : 3,
         width:'100%',
         borderRadius: 7,
-    }
+    },
+    search_icon:{width:37, height:37},
 });
 export default styles;

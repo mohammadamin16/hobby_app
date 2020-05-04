@@ -1,13 +1,7 @@
 import React, {Component, useEffect, useState} from 'react';
 import {
-    StyleSheet,
-    ActivityIndicator,
-    Image,
     View,
-    Text,
-    Button,
     FlatList,
-    ToastAndroid,
     RefreshControl,
 } from 'react-native';
 import Suggestion from '../../components/Suggestion/index';
@@ -27,6 +21,7 @@ class HomeScreen extends Component {
         this.setState({notifications:notis});
         this.setState({loading:false})
     };
+
     get_notis = () => {
         get_notifications(this.props.route.params.user.username, this.update_notifications)
     };
@@ -36,18 +31,19 @@ class HomeScreen extends Component {
     }
 
     render() {
-        let scrollview = <FlatList
-                        refreshControl={<RefreshControl refreshing={this.state.loading} onRefresh={this.get_notis}/>}
-                        data={this.state.notifications}
-                        keyExtractor={item => item.imdb_id}
-                        renderItem={({item}) =>(
-                            <Suggestion
-                                navigation={this.props.navigation}
-                                notification={item} />
-                        )} />;
         return(
             <View style={styles.home_screen}>
-                {scrollview}
+                <FlatList
+                    refreshControl={<RefreshControl refreshing={this.state.loading} onRefresh={this.get_notis}/>}
+                    data={this.state.notifications}
+                    keyExtractor={item => {
+                        return(item['suggest']['film']['imdbID'].toString());
+                    }}
+                    renderItem={({item}) =>(
+                        <Suggestion
+                            navigation={this.props.navigation}
+                            notification={item} />
+                    )} />
             </View>
         );
     }

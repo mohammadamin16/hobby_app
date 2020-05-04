@@ -104,7 +104,13 @@ const styles = StyleSheet.create({
     },
     friends_text:{
         fontStyle:'italic',
-    }
+    },
+    change_avtar_txt:{color: '#000'},
+    logout_txt:{color: 'white'},
+    fav_part:{flex:3},
+    line2_part:{flexDirection: 'row',alignItems: 'center',},
+    firned_part:{flex:3, paddingTop:15,},
+    icon:{backgroundColor:'#000',borderRadius: 15,}
 });
 
 export default styles;

@@ -4,16 +4,17 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import LoginScreen from './screens/LoginScreen/index';
-import SignUpScreen from './screens/SignUpScreen/index';
-import SearchFilm from './screens/SearchFilmScreen/index';
-import Profile from './screens/ProfileScreen/index';
-import PeopleScreen from './screens/PeopleScreen/index';
-import HomeScreen from './screens/HomeScreen/index';
-import FilmView from './screens/FilmScreen/index';
-import UserScreen from './screens/UserScreen/index';
-import SuggestScreen from './screens/SuggestScreen/index';
-import Friends from './screens/FriendsScreen/index';
+import LoginScreen from './app/screens/LoginScreen/index';
+import SignUpScreen from './app/screens/SignUpScreen/index';
+import SearchFilm from './app/screens/SearchFilmScreen/index';
+import Profile from './app/screens/ProfileScreen/index';
+import PeopleScreen from './app/screens/PeopleScreen/index';
+import HomeScreen from './app/screens/HomeScreen/index';
+import FilmView from './app/screens/FilmScreen/index';
+import UserScreen from './app/screens/UserScreen/index';
+import SuggestScreen from './app/screens/SuggestScreen/index';
+import Friends from './app/screens/FriendsScreen/index';
+import { YellowBox } from 'react-native';
 
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -60,9 +61,12 @@ class App extends React.Component{
         this.setState({user:{}});
         this.setState({logged_in:false});
     };
-
+    
 
     render(){
+        YellowBox.ignoreWarnings([
+            'Non-serializable values were found in the navigation state',
+        ]);
         if (this.state.logged_in){
             return (
                 <NavigationContainer>

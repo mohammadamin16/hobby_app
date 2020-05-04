@@ -33,18 +33,17 @@ export default class SearchFilm extends React.Component {
         }
         else{
 
-        let data = this.state.result;
-            result = this.state.result.map((item) =>
-            <Film
-                key={item.imdbID}
-                film={item}
-                navigation={this.props.navigation}
-                like_status={item.like_status}
-                watch_status={item.watch_status}
-                user={this.props.route.params.user}
-                />
-                )
-            }
+        result = this.state.result.map((item) =>
+        <Film
+            key={item.imdbID}
+            film={item}
+            navigation={this.props.navigation}
+            like_status={item.like_status}
+            watch_status={item.watch_status}
+            user={this.props.route.params.user}
+            />
+            )
+        }
 
         return(
 
@@ -58,7 +57,7 @@ export default class SearchFilm extends React.Component {
                     />
                     <TouchableHighlight onPress={this.api.bind(this)}>
                         <View style={styles.btn}>
-                        <Image source={search} style={{width:37, height:37}} />
+                        <Image source={search} style={styles.search_icon} />
                         </View>
                     </TouchableHighlight>
                 </View>
@@ -68,8 +67,6 @@ export default class SearchFilm extends React.Component {
                     </ScrollView>
                 </View>
             </View>
-                // </View>
         );
     }
 }
-
