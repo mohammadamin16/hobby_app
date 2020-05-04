@@ -1,12 +1,12 @@
 import React, {Component, useEffect, useState} from 'react';
 import {StyleSheet, ActivityIndicator, Image, View, Text, TouchableHighlight, TouchableWithoutFeedback,Button} from 'react-native';
-import like from '../img/like.png';
-import dislike from '../img/dislike.png';
-import watch from '../img/watch.png';
-import unwatch from '../img/unwatch.png';
-import {like_film, dislike_film, unwatch_film, watch_film} from '../api/accounts';
+import like from '../../img/like.png';
+import dislike from '../../img/dislike.png';
+import watch from '../../img/watch.png';
+import unwatch from '../../img/unwatch.png';
+import {like_film, dislike_film, unwatch_film, watch_film} from '../../api/hobby';
 import FitImage from 'react-native-fit-image';
-
+import styles from './styles';
 
 class Film extends Component {
     constructor(props){
@@ -86,44 +86,5 @@ class Film extends Component {
         );
     }
 }
-
-const styles = StyleSheet.create({
-    film:{
-        flexDirection: 'row',
-        backgroundColor: '#56ff71',
-        borderRadius: 10,
-        borderColor: '#17a92f',
-        borderWidth: 2,
-        marginBottom: 10,
-        padding: 5,
-        width: '80%',
-        height: 150,
-    },
-    row:{
-        flexDirection:'row',
-    },
-    options:{
-        flexDirection: 'row',
-    },
-    title:{
-        textAlign: 'center',
-        fontSize: 20,
-        fontWeight: 'bold'
-    },
-    info_row:{
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    rate_number: {
-        backgroundColor: '#b0af22',
-        borderRadius: 10,
-        padding:5,
-    },
-    year_number: {
-        backgroundColor: '#606aee',
-        borderRadius: 10,
-        padding:5,
-    }
-});
 
 export default Film;

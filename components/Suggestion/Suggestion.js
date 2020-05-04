@@ -1,10 +1,7 @@
 import React, {Component, useEffect, useState} from 'react';
 import {StyleSheet, ActivityIndicator, Image, View, Text, TouchableHighlight, TouchableWithoutFeedback, Button} from 'react-native';
 import FitImage from 'react-native-fit-image';
-import like from '../img/like.png';
-import dislike from '../img/dislike.png';
-import {like_film} from '../api/accounts';
-
+import styles from './styles';
 
 class Film extends Component {
     constructor(props){
@@ -80,26 +77,5 @@ class Film extends Component {
         );
     }
 }
-
-const styles = StyleSheet.create({
-    row:{
-        flexDirection:'row'
-    },
-    line:{
-        alignSelf:'center',
-        backgroundColor: '#051709',
-        width:'90%',
-        height:1,
-        borderRadius:10,
-    },
-    fitImage: {
-        borderRadius: 20,
-    },
-    fitImageWithSize: {
-        height: 100,
-        width: 30,
-    },
-
-});
 
 export default Film;

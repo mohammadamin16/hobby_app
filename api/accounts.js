@@ -1,27 +1,28 @@
 import * as axios from 'axios';
 import {ToastAndroid} from 'react-native';
 
-// const url = 'http://192.168.1.249:8000';
-const url = 'https://vast-brushlands-59580.herokuapp.com';
+const url = 'http://192.168.1.249:8000';
+// const url = 'https://vast-brushlands-59580.herokuapp.com';
 
-export async function login(username, password,success_function){
+
+
+export async function login(username, password, on_success){
     await axios.post(url + '/api/login',{
         username:username,
         password:password,
     }).then( response => {
         let r = response.data;
         if (r['msg'] === 'success'){
-            success_function(r['user'])
+            on_success(r['user'])
         }else{
             ToastAndroid.show(r['msg'], ToastAndroid.LONG);
         }
-
     }).catch((response) => {
         console.error(response);
     });
 }
 
-export async function signup(username, password, name, success_function){
+export async function signup(username, password, name, on_success){
     await axios.post(url + '/api/signup',{
         username:username,
         password:password,
@@ -29,89 +30,15 @@ export async function signup(username, password, name, success_function){
     }).then( response => {
         let r = response.data;
         if (r['msg'] === 'success'){
-            success_function()
+            on_success()
         }else{
             ToastAndroid.show(r['msg'].toString(), ToastAndroid.LONG);
-            // alert(r['msg'])
         }
     }).catch((response) => {
         console.error(response);
     });
 }
 
-export async function search_film(query,username , result_function) {
-    await axios.post(url + '/api/search_film', {
-        query: query,
-        username: username,
-    }).then(response => {
-        let r = response.data.films;
-        result_function(r);
-    }).catch((response) => {
-        console.error(response);
-    });
-}
-
-export async function like_film(username, film_id) {
-    await axios.post(url + '/api/fav', {
-        username: username,
-        film_id: film_id,
-    }).then(response => {
-        //WE CAN DO STH HERE...
-    }).catch((response) => {
-        console.error(response);
-    });
-}
-
-export async function dislike_film(username, film_id) {
-    await axios.post(url + '/api/disfav', {
-        username: username,
-        film_id: film_id,
-    }).then(response => {
-        //WE CAN DO STH HERE...
-    }).catch((response) => {
-        console.error(response);
-    });
-}
-
-export async function watch_film(username, film_id) {
-    await axios.post(url + '/api/watch', {
-        username: username,
-        film_id: film_id,
-    }).then(response => {
-        //WE CAN DO STH HERE...
-    }).catch((response) => {
-        console.error(response);
-    });
-}
-
-
-export async function unwatch_film(username, film_id) {
-    await axios.post(url + '/api/unwatch', {
-        username: username,
-        film_id: film_id,
-    }).then(response => {
-        //WE CAN DO STH HERE...
-    }).catch((response) => {
-        console.error(response);
-    });
-}
-
-export async function get_notifications(username, on_success) {
-    await axios.post(url + '/api/get_notifications', {
-        username: username,
-    }).then(response => {
-        let msg = response.data.msg;
-        if (msg === 'success'){
-            let r = response.data.notifications;
-            on_success(r)
-        }else{
-            alert('Something went wrong')
-        }
-    }).catch((response) => {
-        console.error(response);
-        alert(response)
-    });
-}
 
 export async function search_people(query, username, success_function) {
     await axios.post(url + '/api/search_people', {
@@ -168,20 +95,6 @@ export async function get_friends(username, success_function) {
     });
 }
 
-export async function suggest(username, film_id, title, text, success_function) {
-    await axios.post(url + '/api/suggest', {
-        username: username,
-        film_id: film_id,
-        title: title,
-        text: text,
-    }).then(response => {
-        ToastAndroid.show("Suggested!", ToastAndroid.SHORT);
-        success_function()
-    }).catch((response) => {
-        console.error(response);
-    });
-}
-
 export async function get_requests(username, success_function) {
     await axios.post(url + '/api/get_requests', {
         username: username,
@@ -195,16 +108,6 @@ export async function get_requests(username, success_function) {
 export async function get_people(success_function) {
     await axios.post(url + '/api/get_people', {}).then(response => {
         success_function(response.data.users);
-    }).catch((response) => {
-        console.error(response);
-    });
-}
-
-export async function get_favs(username, success_function) {
-    await axios.post(url + '/api/get_favs', {
-        username: username,
-    }).then(response => {
-        success_function(response.data.favs);
     }).catch((response) => {
         console.error(response);
     });

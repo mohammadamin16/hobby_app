@@ -10,12 +10,11 @@ import {
     ToastAndroid,
     RefreshControl,
 } from 'react-native';
-import Suggestion from '../components/Suggestion';
-import {get_notifications} from '../api/accounts';
-import Film from './Film';
-import Toast from 'react-native-easy-toast';
+import Suggestion from '../../components/Suggestion/index';
+import {get_notifications} from '../../api/hobby';
+import styles from './styles';
 
-class Home extends Component {
+class HomeScreen extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -54,13 +53,5 @@ class Home extends Component {
     }
 }
 
-const styles = StyleSheet.create({
-    home_screen : {
-        flex:1,
-        flexDirection:'column',
-        backgroundColor:'#0f0a30',
-        padding:'2%',
-    }
-});
 
-export default Home;
+export default HomeScreen;

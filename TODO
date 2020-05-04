@@ -1,0 +1,6 @@
+(DONE!) 1) Sepertate api functions in seperated files
+(DONE!) 2) mv screen files in screens/
+(DONE!) 3) fix import errors in all components for api funcs
+(DONE!) 4) seperate styles of components in seperated files alongside of component 
+5) Home.js generates some warnings remove them!
+6) Profile.js generates some warnings remove them!

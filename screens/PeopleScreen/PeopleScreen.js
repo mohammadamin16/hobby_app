@@ -1,11 +1,11 @@
 import React,{useState} from 'react';
 import {FlatList, ActivityIndicator, Text, View, StyleSheet, TextInput, TouchableHighlight,TouchableWithoutFeedback, Image, ScrollView} from 'react-native';
-import {search_people, get_people} from '../api/accounts';
-import Film from '../components/Film';
-import User from './User';
-import white_search from '../img/white_search.png';
+import {search_people, get_people} from '../../api/accounts';
+import User from '../../components/User';
+import white_search from '../../img/white_search.png';
+import styles from './styles'
 
-export default class People extends React.Component {
+export default class PeopleScreen extends React.Component {
     constructor(props){
         super(props);
         this.state ={
@@ -81,47 +81,3 @@ export default class People extends React.Component {
 }
 
 
-
-const styles = StyleSheet.create({
-    people_screen: {
-        flex: 1,
-        alignItems: 'center',
-        backgroundColor: '#4492c6',
-    },
-    input:{
-        flex:6,
-        padding:10,
-        borderRadius:10,
-        height:40,
-    },
-    row:{
-        // backgroundColor:'red',
-        margin:30,
-        flexDirection:'row',
-    },
-    label1:{
-        paddingTop:10,
-        paddingRight:20,
-        height: 40,
-        fontSize: 20,
-    },
-    btn:{
-        flex:1,
-        backgroundColor:'#111330',
-        color:'#fff',
-        padding:10,justifyContent: 'center',
-        alignItems: 'center',
-        paddingLeft: 20,
-        height:40,
-        width:60
-    },
-
-    searchbar:{
-        flexDirection: 'row',
-        backgroundColor:'#316a90',
-        borderColor : '#202258',
-        borderWidth : 3,
-        width:'100%',
-        borderRadius: 7,
-    }
-});

@@ -1,10 +1,11 @@
 import React, {Component, useEffect, useState} from 'react';
 import {StyleSheet, View, Text, Button, FlatList, ToastAndroid, ActivityIndicator,RefreshControl} from 'react-native';
-import {get_requests} from '../api/accounts';
-import Film from './Film';
-import Request from './Request';
+import {get_requests} from '../../api/accounts';
+import Film from '../../components/Film';
+import Request from '../../components/Request';
+import styles from './styles'
 
-class Friends extends Component {
+class FriendsScreen extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -65,13 +66,4 @@ class Friends extends Component {
     }
 }
 
-const styles = StyleSheet.create({
-    friends_screen : {
-        flex:1,
-        flexDirection:'column',
-        backgroundColor:'#97c55f',
-        padding:10,
-    }
-});
-
-export default Friends;
+export default FriendsScreen;
