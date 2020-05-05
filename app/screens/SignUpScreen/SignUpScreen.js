@@ -2,6 +2,7 @@ import React, {Component, useEffect, useState} from 'react';
 import {Image, StyleSheet, Text, TextInput, TouchableHighlight, TouchableNativeFeedback, View} from 'react-native';
 import {login, signup} from '../../api/accounts';
 import hobby from '../../img/hobby.png';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 class SignUpScreen extends Component {
 
@@ -11,25 +12,42 @@ class SignUpScreen extends Component {
             username:'',
             password:'',
             name:'',
+            loading:false,
+            loading_text:'Loading...'
         }
     }
 
+    remove_loading = () => {
+        this.setState({loading:false});
+    };
+
+ 
     apiDidAuthenticate = () => {
-        this.props.navigation.navigate('Login' , {username_value:this.state.username})
+        this.setState({loading_text:'Logging in...'})        
+        this.setState({loading:true});
+        login(this.state.username, this.state.password, this.props.route.params.success_function, this.remove_loading);
+        
     };
 
     onSubmit = async () => {
+        this.setState({loading_text:'Signing up...'})
+        this.setState({loading:true})
         let username = this.state.username;
         let password = this.state.password;
         let name = this.state.name;
-        signup(username, password,name , this.apiDidAuthenticate);
-    };
-
-
+        signup(username, password,name , this.apiDidAuthenticate, this.remove_loading);
+    }
     render() {
         return (
             <View style={styles.welcome_screen}>
-
+                <Spinner
+                    overlayColor={'#00000088'}
+                    visible={this.state.loading}
+                    textContent={this.state.loading_text}
+                    textStyle={{
+                        color:'#fff',
+                    }}
+                />
                 <View style={[styles.row, {alignItems: 'center'}]}>
                     <Text style={styles.welcome}>Hobby</Text>
                     <Image

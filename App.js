@@ -14,9 +14,12 @@ import FilmView from './app/screens/FilmScreen/index';
 import UserScreen from './app/screens/UserScreen/index';
 import SuggestScreen from './app/screens/SuggestScreen/index';
 import Friends from './app/screens/FriendsScreen/index';
-import { YellowBox, AsyncStorage } from 'react-native';
+import { YellowBox } from 'react-native';
+import AsyncStorage from "@react-native-community/async-storage";
 import { login } from "./app/api/accounts";
 import SplashScreen from 'react-native-splash-screen'
+import Spinner from 'react-native-loading-spinner-overlay';
+
 
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -52,11 +55,30 @@ class App extends React.Component{
     constructor(){
         super();
         SplashScreen.hide()
+        this.load_auth()
     }
 
     state = {
         user:{},
         logged_in:false,
+        loading:false,
+    };
+
+    remove_loading = () => {
+        this.setState({loading:false});
+    };
+
+    load_auth = async () => {
+        try {
+            const username = await AsyncStorage.getItem('username');
+            const password = await AsyncStorage.getItem('password');
+            if (username !== null && password !== null) {
+                this.setState({loading:true});
+                login(username, password, this.login_user, this.remove_loading)
+            }
+          } catch (error) {
+            //   console.log(error)
+          }
     };
 
     login_user = (user, password) =>{
@@ -95,16 +117,7 @@ class App extends React.Component{
     };
 
     componentDidMount = async() =>  {
-        try {
-            const username = await AsyncStorage.getItem('username');
-            const password = await AsyncStorage.getItem('password');
-            if (username !== null && password !== null) {
-                login(username, password, this.login_user)
-            }
-          } catch (error) {
-              console.error(error)
-          }
-        
+       
     }
 
     render(){
@@ -172,7 +185,16 @@ class App extends React.Component{
         }
         else {
             return(
+                
                 <NavigationContainer>
+                <Spinner
+                    overlayColor={'#00000088'}
+                    visible={this.state.loading}
+                    textContent={'Loading...'}
+                    textStyle={{
+                        color:'#fff',
+                    }}
+                />
                     <Tab.Navigator
                     initialRouteName="Login"
                     activeColor={'#fff'}

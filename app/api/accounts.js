@@ -5,12 +5,12 @@ import url from '../../config/url';
 
 
 
-export async function login(username, password, on_success){
+export async function login(username, password, on_success, remove_loading){
     await axios.post(url + '/api/login',{
         username:username,
         password:password,
     }).then( response => {
-
+        remove_loading()
         let r = response.data;
         if (r['msg'] === 'success'){
             on_success(r['user'], password)
@@ -22,12 +22,13 @@ export async function login(username, password, on_success){
     });
 }
 
-export async function signup(username, password, name, on_success){
+export async function signup(username, password, name, on_success, remove_loading){
     await axios.post(url + '/api/signup',{
         username:username,
         password:password,
         name:name,
     }).then( response => {
+        remove_loading()
         let r = response.data;
         if (r['msg'] === 'success'){
             on_success()

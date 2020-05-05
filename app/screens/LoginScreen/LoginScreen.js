@@ -3,6 +3,7 @@ import {StyleSheet, Text, TextInput, TouchableHighlight, View, Image, TouchableO
 import {login} from '../../api/accounts';
 import hobby from '../../img/hobby.png';
 import styles from './styles'
+import Spinner from 'react-native-loading-spinner-overlay';
 
 class LoginScreen extends Component {
 
@@ -11,6 +12,7 @@ class LoginScreen extends Component {
         this.state = {
             username:'',
             password:'',
+            loading:false,
         }
     }
 
@@ -19,17 +21,29 @@ class LoginScreen extends Component {
     };
 
     onSubmit = async () => {
+        this.setState({loading:true});
+
         let username = this.state.username;
         let password = this.state.password;
-        login(username, password, this.props.route.params.success_function);
+        login(username, password, this.props.route.params.success_function, this.remove_loading);
+    };
 
+    remove_loading = () => {
+        this.setState({loading:false});
     };
 
 
     render() {
         return (
             <View style={styles.welcome_screen}>
-
+                <Spinner
+                    overlayColor={'#00000088'}
+                    visible={this.state.loading}
+                    textContent={'Loading...'}
+                    textStyle={{
+                        color:'#fff',
+                    }}
+                />
 
                 <View style={[styles.row, {alignItems: 'center'}]}>
                     <Text style={styles.welcome}>Hobby</Text>

@@ -3,6 +3,7 @@ import {
     View,
     FlatList,
     RefreshControl,
+    Text,
 } from 'react-native';
 import Suggestion from '../../components/Suggestion/index';
 import {get_notifications} from '../../api/hobby';
@@ -30,9 +31,26 @@ class HomeScreen extends Component {
         this.get_notis()
     }
 
+    get_msg = () => {
+        if (this.state.notifications.length === 0){
+            return (
+                <Text style={{
+                    backgroundColor: '#0c3415',
+                    color: '#fff',
+                    padding:5,
+                    textAlign: 'center',
+                    borderRadius: 10
+                }}>
+                    You don't have any suggestions!
+                </Text>
+            )
+        }
+    };
+
     render() {
         return(
             <View style={styles.home_screen}>
+                {this.get_msg()}
                 <FlatList
                     refreshControl={<RefreshControl refreshing={this.state.loading} onRefresh={this.get_notis}/>}
                     data={this.state.notifications}
