@@ -14,7 +14,8 @@ import FilmView from './app/screens/FilmScreen/index';
 import UserScreen from './app/screens/UserScreen/index';
 import SuggestScreen from './app/screens/SuggestScreen/index';
 import Friends from './app/screens/FriendsScreen/index';
-import { YellowBox } from 'react-native';
+import { YellowBox, AsyncStorage } from 'react-native';
+import { login } from "./app/api/accounts";
 
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -52,16 +53,53 @@ class App extends React.Component{
         logged_in:false,
     };
 
-    login_user = (user) =>{
+    login_user = (user, password) =>{
         this.setState({user:user});
         this.setState({logged_in:true});
-
+        this.save_user(user.username,password)
+        
     };
-    logout_user = () =>{
+    logout_user = () => {
+        console.log("Is this refreshing or not");
         this.setState({user:{}});
         this.setState({logged_in:false});
+        this.clear_user()
+        
     };
     
+    clear_user = async () => {
+        try {
+            await AsyncStorage.removeItem('username');
+            await AsyncStorage.removeItem('password');
+            console.log('User logged out')
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    save_user = async (username, password) => {
+        try {
+            await AsyncStorage.setItem('username', username);
+            await AsyncStorage.setItem('password', password);
+            console.log('login username:')
+            console.log(username)
+        } catch (error) {
+            console.error(error)
+        }
+    };
+
+    componentDidMount = async() =>  {
+        try {
+            const username = await AsyncStorage.getItem('username');
+            const password = await AsyncStorage.getItem('password');
+            if (username !== null && password !== null) {
+                login(username, password, this.login_user)
+            }
+          } catch (error) {
+              console.error(error)
+          }
+        
+    }
 
     render(){
         YellowBox.ignoreWarnings([
@@ -71,6 +109,7 @@ class App extends React.Component{
             return (
                 <NavigationContainer>
                     <Tab.Navigator
+                        barStyle={{height:35, justifyContent:'center', paddingBottom:10,paddingTop:0, margin:0}}
                         initialRouteName="Home"
                         activeColor={'#ffffff'}
                         inactiveColor={'#000000'}
@@ -133,7 +172,7 @@ class App extends React.Component{
                     activeColor={'#fff'}
                     inactiveColor={'#261a2f'}
                     pressColor={'#fff'}
-                    barStyle={{ backgroundColor: '#5533ad' }}
+                    barStyle={{backgroundColor: '#5533ad', height:35, justifyContent:'center', paddingBottom:10,paddingTop:0, margin:0}}
                     labeled={false}
                         >
                         <Tab.Screen

@@ -13,7 +13,7 @@ export async function login(username, password, on_success){
 
         let r = response.data;
         if (r['msg'] === 'success'){
-            on_success(r['user'])
+            on_success(r['user'], password)
         }else{
             ToastAndroid.show(r['msg'], ToastAndroid.LONG);
         }
