@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -16,6 +16,7 @@ import SuggestScreen from './app/screens/SuggestScreen/index';
 import Friends from './app/screens/FriendsScreen/index';
 import { YellowBox, AsyncStorage } from 'react-native';
 import { login } from "./app/api/accounts";
+import SplashScreen from 'react-native-splash-screen'
 
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -48,6 +49,11 @@ function PeopleTab({ route, navigation }) {
 
 
 class App extends React.Component{
+    constructor(){
+        super();
+        SplashScreen.hide()
+    }
+
     state = {
         user:{},
         logged_in:false,
